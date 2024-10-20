@@ -1,0 +1,36 @@
+{
+  "name": "rvc-naviera",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@aws-amplify/adapter-nextjs": "^1.2.22",
+    "@aws-amplify/ui-react": "^6.5.4",
+    "aws-amplify": "^6.6.5",
+    "next": "14.2.15",
+    "react": "^18",
+    "react-dom": "^18"
+  },
+  "devDependencies": {
+    "@aws-amplify/backend": "^1.5.0",
+    "@aws-amplify/backend-cli": "^1.2.9",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "aws-cdk": "^2.162.1",
+    "aws-cdk-lib": "^2.162.1",
+    "constructs": "^10.4.2",
+    "esbuild": "^0.24.0",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.15",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.3"
+  }
+}
