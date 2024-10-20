@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button"
+
 import { ShipIcon } from 'lucide-react'
 
 export default function Home() {
@@ -13,9 +13,7 @@ export default function Home() {
         <p className="text-lg mb-6">
           Bienvenido a RVC Naviera, su socio confiable en servicios marítimos.
         </p>
-        <Button className="bg-blue-600 hover:bg-blue-700">
-          Conoce nuestros servicios
-        </Button>
+      
       </main>
     </div>
   );
