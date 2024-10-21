@@ -47,7 +47,7 @@ export default function Navbar() {
               size="sm"
               asChild
             >
-              <Link className='' href="/login">
+              <Link className='text-gray-700' href="/login">
                 Log in
               </Link>
             </Button>
