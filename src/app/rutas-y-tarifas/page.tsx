@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Ship, Anchor, MapPin, DollarSign } from 'lucide-react'
 
-const regiones = ['Norte', 'Sur', 'Este', 'Oeste'] as const; // Esto convierte cada valor en un literal específico
+const regiones = ['Norte', 'Sur', 'Este', 'Oeste'] as const; 
 const lugares = {
   Norte: ['Puerto A', 'Puerto B', 'Puerto C'],
   Sur: ['Puerto D', 'Puerto E', 'Puerto F'],
@@ -42,7 +42,8 @@ export default function RutasYTarifas() {
             </CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col space-y-4">
-            <Select onValueChange={setRegionSeleccionada} defaultValue={regionSeleccionada}>
+          <Select onValueChange={(value: string) => setRegionSeleccionada(value as typeof regiones[0])} defaultValue={regionSeleccionada}>
+
               <SelectTrigger>
                 <SelectValue placeholder="Selecciona una región" />
               </SelectTrigger>
