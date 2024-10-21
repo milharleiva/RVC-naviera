@@ -6,13 +6,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Ship, Anchor, MapPin, DollarSign } from 'lucide-react'
 
-const regiones = ['Norte', 'Sur', 'Este', 'Oeste']
+const regiones = ['Norte', 'Sur', 'Este', 'Oeste'] as const; // Esto convierte cada valor en un literal específico
 const lugares = {
-  'Norte': ['Puerto A', 'Puerto B', 'Puerto C'],
-  'Sur': ['Puerto D', 'Puerto E', 'Puerto F'],
-  'Este': ['Puerto G', 'Puerto H', 'Puerto I'],
-  'Oeste': ['Puerto J', 'Puerto K', 'Puerto L']
-}
+  Norte: ['Puerto A', 'Puerto B', 'Puerto C'],
+  Sur: ['Puerto D', 'Puerto E', 'Puerto F'],
+  Este: ['Puerto G', 'Puerto H', 'Puerto I'],
+  Oeste: ['Puerto J', 'Puerto K', 'Puerto L']
+};
 
 export default function RutasYTarifas() {
   const [regionSeleccionada, setRegionSeleccionada] = useState(regiones[0])
