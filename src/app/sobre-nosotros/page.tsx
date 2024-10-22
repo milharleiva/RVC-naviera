@@ -4,7 +4,7 @@ import { Anchor, Ship, Users, BarChart3 } from 'lucide-react'
 export default function sobrenosotros() {
   return (
     <div className="container mx-auto px-4 py-16">
-      <h1 className="text-4xl font-bold text-center mb-12">Sobre Nosotros</h1>
+      <h1 className="text-4xl font-bold text-center  mb-12">Sobre Nosotros</h1>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Sección principal */}
         <div className="md:col-span-2 bg-white rounded-xl shadow-lg p-6 transition-all hover:shadow-xl">

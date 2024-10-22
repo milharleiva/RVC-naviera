@@ -9,7 +9,7 @@ const backend = defineBackend({
 
 backend.addOutput({
   storage: {
-    aws_region: "us-west-2",
+    aws_region: "us-west-1",
     bucket_name: "public",
   },
 });

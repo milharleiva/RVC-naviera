@@ -4,10 +4,10 @@ import { Authenticator } from '@aws-amplify/ui-react'
 import '@aws-amplify/ui-react/styles.css'
 import { ShipIcon } from 'lucide-react'
 import '@aws-amplify/ui-react/styles.css';
+import { Amplify } from 'aws-amplify';
+import outputs from '@/amplify_outputs.json';
 
-
-
-
+Amplify.configure(outputs);
 
 
 
@@ -19,7 +19,7 @@ export default function Login() {
       <div className="mb-8">
         <ShipIcon className="w-16 h-16 text-blue-600" />
       </div>
-      <h1 className="text-3xl font-bold mb-6 text-center">Welcome to RVC Shipping</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center">Welcome to RVC</h1>
       <div className="w-full max-w-md">
         <Authenticator>
           {({ signOut, user }) => (

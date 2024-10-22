@@ -31,7 +31,7 @@ export default function RutasYTarifas() {
   return (
     <div className="min-h-screen ">
       <div className="container mx-auto px-4">
-        <h1 className="text-4xl font-bold text-center mb-8 text-blue-800">Rutas y Tarifas</h1>
+        <h1 className="text-4xl font-bold text-center my-4 mb-8 text-blue-800">Rutas y Tarifas</h1>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Selector de Región y Lugar */}
