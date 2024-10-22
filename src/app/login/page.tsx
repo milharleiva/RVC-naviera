@@ -3,9 +3,18 @@
 import { Authenticator } from '@aws-amplify/ui-react'
 import '@aws-amplify/ui-react/styles.css'
 import { ShipIcon } from 'lucide-react'
+import '@aws-amplify/ui-react/styles.css';
+
+
+
+
+
+
+
 
 export default function Login() {
   return (
+    <main>
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <div className="mb-8">
         <ShipIcon className="w-16 h-16 text-blue-600" />
@@ -23,10 +32,12 @@ export default function Login() {
               >
                 Sign out
               </button>
+              
             </div>
           )}
         </Authenticator>
       </div>
     </div>
+    </main>
   )
 }
