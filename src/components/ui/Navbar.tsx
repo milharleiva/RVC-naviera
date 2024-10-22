@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation'
 import { Menu, ShipIcon, X } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 
+
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const pathname = usePathname()
@@ -22,7 +23,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex-shrink-0">
-          <ShipIcon className="w-16 h-16 text-blue-600 mb-4" />
+            <ShipIcon className="w-16 h-16 text-blue-600 mb-4" />
           </Link>
 
           {/* Navigation Links (Desktop) */}
@@ -47,7 +48,7 @@ export default function Navbar() {
               size="sm"
               asChild
             >
-              <Link className='text-gray-700' href="/login">
+              <Link href="/login">
                 Log in
               </Link>
             </Button>
@@ -94,9 +95,7 @@ export default function Navbar() {
               className="w-full justify-center mt-2"
               asChild
             >
-              <Link href="/login">
-                Log in
-              </Link>
+              
             </Button>
           </div>
         </div>

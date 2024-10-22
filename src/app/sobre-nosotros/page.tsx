@@ -1,4 +1,4 @@
-import Image from 'next/image'
+
 import { Anchor, Ship, Users, BarChart3 } from 'lucide-react'
 
 export default function sobrenosotros() {
@@ -26,13 +26,7 @@ export default function sobrenosotros() {
 
         {/* Imagen */}
         <div className="md:col-span-2 rounded-xl shadow-lg overflow-hidden">
-          <Image 
-            src="/placeholder.svg?height=400&width=800" 
-            alt="Barco de la compañía" 
-            width={800} 
-            height={400} 
-            className="object-cover w-full h-full"
-          />
+          <Ship/>
         </div>
 
         {/* Misión */}
