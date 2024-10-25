@@ -16,7 +16,7 @@ export default function Login() {
 
   useEffect(() => {
     if (authStatus === 'authenticated') {
-      router.push('/dashboard')
+      router.push('/')
     }
   }, [authStatus, router])
 
