@@ -1,60 +1,86 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { Menu, ShipIcon, X } from 'lucide-react'
 import { Button } from "@/components/ui/button"
-
+import { useAuthenticator } from '@aws-amplify/ui-react'
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const pathname = usePathname()
+  const router = useRouter()
+  const { authStatus, signOut } = useAuthenticator((context) => [context.authStatus, context.user])
 
-  const navItems = [
+  const navItems = useMemo(() => [
     { name: 'Sobre nosotros', href: '/sobre-nosotros' },
     { name: 'Rutas y tarifas', href: '/rutas-y-tarifas' },
     { name: 'Contacto', href: '/contacto' },
-  ]
+  ], [])
+
+  const [currentNavItems, setCurrentNavItems] = useState(navItems)
+
+  useEffect(() => {
+    if (authStatus === 'authenticated' && !currentNavItems.some(item => item.name === 'Dashboard')) {
+      setCurrentNavItems([...navItems, { name: 'Dashboard', href: '/dashboard' }])
+    } else if (authStatus !== 'authenticated') {
+      setCurrentNavItems(navItems)
+    }
+  }, [authStatus, navItems, currentNavItems])
+
+  const handleSignOut = async () => {
+    await signOut()
+    router.push('/login')
+  }
+
+  const NavLink = ({ item }: { item: { name: string; href: string } }) => (
+    <Link
+      href={item.href}
+      className={`text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium ${
+        pathname === item.href ? 'bg-gray-100' : ''
+      }`}
+    >
+      {item.name}
+    </Link>
+  )
 
   return (
     <nav className="bg-white shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
           <Link href="/" className="flex-shrink-0">
             <ShipIcon className="w-16 h-16 text-blue-600 mb-4" />
           </Link>
 
-          {/* Navigation Links (Desktop) */}
           <div className="hidden md:flex space-x-4">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className={`text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium ${
-                  pathname === item.href ? 'bg-gray-100' : ''
-                }`}
-              >
-                {item.name}
-              </Link>
+            {currentNavItems.map((item) => (
+              <NavLink key={item.name} item={item} />
             ))}
           </div>
 
-          {/* Login Button (Desktop) */}
           <div className="hidden md:block">
-            <Button
-              variant="outline"
-              size="sm"
-              asChild
-            >
-              <Link href="/login">
-                Log in
-              </Link>
-            </Button>
+            {authStatus === 'authenticated' ? (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleSignOut}
+              >
+                Log out
+              </Button>
+            ) : (
+              <Button
+                variant="outline"
+                size="sm"
+                asChild
+              >
+                <Link href="/login">
+                  Log in
+                </Link>
+              </Button>
+            )}
           </div>
 
-          {/* Mobile menu button */}
           <div className="md:hidden">
             <Button
               variant="ghost"
@@ -72,11 +98,10 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Navigation */}
       {isMenuOpen && (
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1">
-            {navItems.map((item) => (
+            {currentNavItems.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
@@ -89,14 +114,27 @@ export default function Navbar() {
                 {item.name}
               </Link>
             ))}
-            <Button 
-              variant="outline" 
-              size="sm" 
-              className="w-full justify-center mt-2"
-              asChild
-            >
-              
-            </Button>
+            {authStatus === 'authenticated' ? (
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="w-full justify-center mt-2"
+                onClick={handleSignOut}
+              >
+                Log out
+              </Button>
+            ) : (
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="w-full justify-center mt-2"
+                asChild
+              >
+                <Link href="/login">
+                  Log in
+                </Link>
+              </Button>
+            )}
           </div>
         </div>
       )}
