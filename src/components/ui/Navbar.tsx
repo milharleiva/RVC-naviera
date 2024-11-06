@@ -77,7 +77,7 @@ export default function Navbar() {
                 size="sm"
                 asChild
               >
-                <Link href="/login">
+                <Link href="/auth/login">
                   Log in
                 </Link>
               </Button>
@@ -133,7 +133,7 @@ export default function Navbar() {
                 className="w-full justify-center mt-2"
                 asChild
               >
-                <Link href="/login">
+                <Link href="/auth/login">
                   Log in
                 </Link>
               </Button>

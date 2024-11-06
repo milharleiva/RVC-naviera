@@ -79,7 +79,7 @@ export default function RutasYTarifas() {
                 <li>Adulto: $50</li>
                 <li>Niño (3-12): $25</li>
                 <li>Adulto Mayor: $40</li>
-                <li>Estudiante: $35</li>
+                <li>Estudiante: $gratis</li>
               </ul>
             </CardContent>
           </Card>

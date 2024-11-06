@@ -2,12 +2,12 @@
 
 import './globals.css'
 import { Inter } from 'next/font/google'
-import { ThemeProvider } from "@/components/theme-provider"
 import Navbar from '@/components/ui/Navbar'
 import { Authenticator } from '@aws-amplify/ui-react'
 import '@aws-amplify/ui-react/styles.css'
 import { Amplify } from 'aws-amplify'
 import outputs from '@/amplify_outputs.json'
+
 
 Amplify.configure(outputs)
 
@@ -25,12 +25,7 @@ export default function RootLayout({
       <head />
       <body className={`${inter.className} antialiased`}>
         <Authenticator.Provider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
+          
             <div className="flex flex-col min-h-screen">
               <Navbar />
               <main className="flex-grow">
@@ -40,7 +35,7 @@ export default function RootLayout({
                 <p>&copy; {new Date().getFullYear()} Naviera RVC. Todos los derechos reservados.</p>
               </footer>
             </div>
-          </ThemeProvider>
+          
         </Authenticator.Provider>
       </body>
     </html>
