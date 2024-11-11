@@ -72,7 +72,7 @@ model Usuario {
   nombre       String    @db.VarChar(50)
   apellido     String    @db.VarChar(50)
   email        String    @unique @db.VarChar(100)
-  contrasena   String    @db.VarChar(255)
+  password   String    @db.VarChar(255)
   tipo_usuario String    @default("turista") @db.VarChar(20)
   telefono     String?   @db.VarChar(20)
   createdAt   DateTime  @default(now())
