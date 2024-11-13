@@ -1,40 +1,28 @@
 'use client'
 
-import { useState, useEffect, useMemo } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { Menu,  X } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import { Button } from "@/components/ui/button"
-import { useAuthenticator } from '@aws-amplify/ui-react'
+import { useSession, signOut } from 'next-auth/react'
 import Logo from './Logo'
-
-
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const pathname = usePathname()
   const router = useRouter()
-  const { authStatus, signOut } = useAuthenticator((context) => [context.authStatus, context.user])
+  const { status } = useSession()
 
-  const navItems = useMemo(() => [
+  const navItems = [
     { name: 'Sobre nosotros', href: '/sobre-nosotros' },
     { name: 'Rutas y tarifas', href: '/rutas-y-tarifas' },
     { name: 'Contacto', href: '/contacto' },
-  ], [])
-
-  const [currentNavItems, setCurrentNavItems] = useState(navItems)
-
-  useEffect(() => {
-    if (authStatus === 'authenticated' && !currentNavItems.some(item => item.name === 'Dashboard')) {
-      setCurrentNavItems([...navItems, { name: 'Dashboard', href: '/dashboard' }])
-    } else if (authStatus !== 'authenticated') {
-      setCurrentNavItems(navItems)
-    }
-  }, [authStatus, navItems, currentNavItems])
+  ]
 
   const handleSignOut = async () => {
     await signOut()
-    router.push('/login')
+    router.push('/auth/login')
   }
 
   const NavLink = ({ item }: { item: { name: string; href: string } }) => (
@@ -53,17 +41,17 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex-shrink-0">
-          <Logo className="h-12 w-12 mr-2" />
+            <Logo className="h-12 w-12 mr-2" />
           </Link>
 
           <div className="hidden md:flex space-x-4">
-            {currentNavItems.map((item) => (
+            {navItems.map((item) => (
               <NavLink key={item.name} item={item} />
             ))}
           </div>
 
           <div className="hidden md:block">
-            {authStatus === 'authenticated' ? (
+            {status === 'authenticated' ? (
               <Button
                 variant="outline"
                 size="sm"
@@ -104,7 +92,7 @@ export default function Navbar() {
       {isMenuOpen && (
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1">
-            {currentNavItems.map((item) => (
+            {navItems.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
@@ -117,7 +105,7 @@ export default function Navbar() {
                 {item.name}
               </Link>
             ))}
-            {authStatus === 'authenticated' ? (
+            {status === 'authenticated' ? (
               <Button 
                 variant="outline" 
                 size="sm" 

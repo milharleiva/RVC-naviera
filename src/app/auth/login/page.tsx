@@ -3,7 +3,7 @@ import Link from 'next/link'
 import {useForm} from 'react-hook-form'
 import {signIn} from 'next-auth/react'
 import { useRouter } from 'next/navigation'
-
+import { useState } from 'react'
 
 export default function LoginPage() {
 
@@ -18,10 +18,10 @@ export default function LoginPage() {
       password: data.password,
       redirect: false,
     })
-    console.log(res)
+    const [error, SetError] = useState('')
   
    if(res?.error) {
-    alert(res.error)
+    SetError(res.error)
    } else {
     router.push('/dashboard')
    }
@@ -33,6 +33,11 @@ export default function LoginPage() {
     <div className="max-w-md mx-auto mt-10 p-6 bg-white shadow-md rounded-lg">
       <h1 className="text-2xl font-bold mb-6">Login</h1>
       <form onSubmit={onSubmit} className="flex flex-col space-y-4">
+
+      {errors && typeof errors.message === "string" && (
+                    <span className="text-red-600 text-xs">{errors.message}</span>
+                    )}
+
       <label htmlFor="email" className='text-slate-800 mb-2 block text-sm' >Email</label>
       <input type="email" placeholder="Email" className="p-2 mb-2 border text-black rounded w-full"
                 {...register('email',
