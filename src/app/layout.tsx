@@ -3,17 +3,10 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
 import Navbar from '@/components/ui/Navbar'
+import { SessionProvider } from 'next-auth/react'
 import { Authenticator } from '@aws-amplify/ui-react'
-import '@aws-amplify/ui-react/styles.css'
-import { Amplify } from 'aws-amplify'
-import outputs from '@/amplify_outputs.json'
-
-
-Amplify.configure(outputs)
 
 const inter = Inter({ subsets: ['latin'] })
-
-
 
 export default function RootLayout({
   children,
@@ -25,17 +18,17 @@ export default function RootLayout({
       <head />
       <body className={`${inter.className} antialiased`}>
         <Authenticator.Provider>
-          
-            <div className="flex flex-col min-h-screen">
-              <Navbar />
-              <main className="flex-grow">
-                {children}
-              </main>
-              <footer className="bg-primary text-primary-foreground py-4 text-center">
-                <p>&copy; {new Date().getFullYear()} Naviera RVC. Todos los derechos reservados.</p>
-              </footer>
-            </div>
-          
+          <SessionProvider>
+          <div className="flex flex-col min-h-screen">
+            <Navbar />
+            <main className="flex-grow">
+              {children}
+            </main>
+            <footer className="bg-primary text-primary-foreground py-4 text-center">
+              <p>&copy; {new Date().getFullYear()} Naviera RVC. Todos los derechos reservados.</p>
+            </footer>
+          </div>
+          </SessionProvider>
         </Authenticator.Provider>
       </body>
     </html>
