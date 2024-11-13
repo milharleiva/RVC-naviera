@@ -11,6 +11,8 @@ export default function LoginPage() {
 
   const router = useRouter()
 
+  const [error, SetError] = useState('')
+
   const onSubmit = handleSubmit( async (data) => {
     console.log(data)
     const res = await signIn('credentials', {
@@ -18,7 +20,6 @@ export default function LoginPage() {
       password: data.password,
       redirect: false,
     })
-    const [error, SetError] = useState('')
   
    if(res?.error) {
     SetError(res.error)
@@ -32,6 +33,7 @@ export default function LoginPage() {
 
     <div className="max-w-md mx-auto mt-10 p-6 bg-white shadow-md rounded-lg">
       <h1 className="text-2xl font-bold mb-6">Login</h1>
+      {error && <p className="text-red-600 text-xs">{error}</p>}
       <form onSubmit={onSubmit} className="flex flex-col space-y-4">
 
       {errors && typeof errors.message === "string" && (
