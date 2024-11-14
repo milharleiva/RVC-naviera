@@ -49,6 +49,11 @@ export  default  function Register() {
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
             <h1 className="text-3xl font-bold mb-6">Register</h1>
             <form onSubmit={onSubmit} className="w-full max-w-sm bg-white p-8 rounded shadow-md">
+
+                {errors && typeof errors.message === "string" && (
+                    <span className="bg-red-600 text-sm rounded ">{errors.message}</span>
+                    )}
+
                 <label htmlFor="nombre" className='text-slate-800 mb-2 block text-sm' >nombre</label>
                 <input type="text" placeholder="nombre" className="p-2 mb-2 border  rounded w-full"
                 {...register('nombre', {required: {value: true, message: 'nombre is required'}})}

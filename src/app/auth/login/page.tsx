@@ -37,7 +37,7 @@ export default function LoginPage() {
       <form onSubmit={onSubmit} className="flex flex-col space-y-4">
 
       {errors && typeof errors.message === "string" && (
-                    <span className="text-red-600 text-xs">{errors.message}</span>
+                    <span className="bg-red-600 text-sm rounded ">{errors.message}</span>
                     )}
 
       <label htmlFor="email" className='text-slate-800 mb-2 block text-sm' >Email</label>
