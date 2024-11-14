@@ -26,14 +26,14 @@ const authOptions =
                         }
                     })        
 
-                    if(!userfound)  throw new Error('user not found')
+                    if(!userfound)  throw new Error('usuario no encontrado')
 
                     console.log(userfound)
 
                    if (!credentials) return null;
                    const matchpassword = await bcrypt.compare(credentials.password, userfound.password)
 
-                   if (!matchpassword)  throw Error('password incorrect')
+                   if (!matchpassword)  throw Error('contraseña incorrecta')
 
                    return {
                     id: userfound.id_usuario.toString(),

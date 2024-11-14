@@ -17,9 +17,7 @@ export async function POST(request: Request) {
             }
         })
         
-        if(userfound) {
-            return NextResponse.json({message: 'email already exists'})
-        }
+        if(userfound) throw new Error('correo ya existe')
         
 
 
