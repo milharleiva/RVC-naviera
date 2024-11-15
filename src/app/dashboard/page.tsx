@@ -1,15 +1,13 @@
 'use client'
 
-
 import { useRouter } from 'next/navigation'
-import { useAuthenticator } from '@aws-amplify/ui-react'
+import { useSession, signIn, signOut } from 'next-auth/react'
 import { User, Package, Calendar, Download, Database, Home, Settings, HelpCircle } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 import Logo from '@/components/ui/Logo'
 import "react-datepicker/dist/react-datepicker.css"
-
 
 const data = [
   { name: '5k', Sales: 20, Profit: 30 },
@@ -26,16 +24,9 @@ const data = [
   { name: '60k', Sales: 100, Profit: 90 },
 ]
 
-
-
 export default function Dashboard() {
-  const { user } = useAuthenticator((context) => [context.user])
-
-
+  const { data: session } = useSession()
   const router = useRouter()
-
-
-
 
   return (
     <div className="flex h-screen bg-gray-100">
@@ -50,7 +41,7 @@ export default function Dashboard() {
               <Home className="mr-2 h-5 w-5" /> Inicio
             </Button>
             <Button variant="ghost" className="w-full justify-start" size="lg">
-              <Package className="mr-2 h-5 w-5" /> historial
+              <Package className="mr-2 h-5 w-5" /> Historial
             </Button>
             <Button variant="ghost" className="w-full justify-start" size="lg">
               <Calendar className="mr-2 h-5 w-5" /> Programación
@@ -65,7 +56,12 @@ export default function Dashboard() {
         </div>
         <div className="p-4 border-t">
           <p className="text-sm text-gray-600">Conectado como:</p>
-          <p className="font-semibold">{user?.username}</p>
+          <p className="font-semibold">{session?.user?.name || 'Invitado'}</p>
+          {session ? (
+            <Button onClick={() => signOut()}>Cerrar sesión</Button>
+          ) : (
+            <Button onClick={() => signIn()}>Iniciar sesión</Button>
+          )}
         </div>
       </div>
 
@@ -130,12 +126,6 @@ export default function Dashboard() {
                 <p className="text-sm text-gray-600">2.5% Más que Ayer</p>
               </CardContent>
             </Card>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-            {/* recordatorios */}
-
-          
           </div>
 
           {/* Feedback section */}
