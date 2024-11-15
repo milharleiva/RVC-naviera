@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { useSession, signIn, signOut } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
 import { User, Package, Calendar, Download, Database, Home, Settings, HelpCircle } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -56,12 +56,8 @@ export default function Dashboard() {
         </div>
         <div className="p-4 border-t">
           <p className="text-sm text-gray-600">Conectado como:</p>
-          <p className="font-semibold">{session?.user?.name || 'Invitado'}</p>
-          {session ? (
-            <Button onClick={() => signOut()}>Cerrar sesión</Button>
-          ) : (
-            <Button onClick={() => signIn()}>Iniciar sesión</Button>
-          )}
+          <p className="font-semibold">{session?.user?.name}</p>
+         
         </div>
       </div>
 
