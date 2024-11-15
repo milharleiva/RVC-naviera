@@ -44,7 +44,7 @@ export default function Dashboard() {
               <Package className="mr-2 h-5 w-5" /> Historial
             </Button>
             <Button variant="ghost" className="w-full justify-start" size="lg">
-              <Calendar className="mr-2 h-5 w-5" /> Programación
+              <Calendar className="mr-2 h-5 w-5" /> Anuncios
             </Button>
             <Button variant="ghost" className="w-full justify-start" size="lg" onClick={() => router.push('/dashboard/settings')}>
               <Settings className="mr-2 h-5 w-5" /> Configuración
