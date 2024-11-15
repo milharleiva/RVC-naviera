@@ -17,7 +17,9 @@ export async function POST(request: Request) {
             }
         })
         
-        if(userfound) throw new Error('correo ya existe')
+        if(userfound) {
+            return NextResponse.json({message: 'correo ya existe'}, {status: 400});
+        }
         
 
 

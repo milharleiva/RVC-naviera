@@ -33,11 +33,10 @@ export default function LoginPage() {
 
     <div className="max-w-md mx-auto mt-10 p-6 bg-white shadow-md rounded-lg">
       <h1 className="text-2xl font-bold mb-6">Login</h1>
-      {error && <p className="text-red-600 text-xs">{error}</p>}
       <form onSubmit={onSubmit} className="flex flex-col space-y-4">
 
-      {errors && typeof errors.message === "string" && (
-                    <p className="bg-red-600 text-lg text-white p-3 rounded ">{errors.message}</p>
+      {error && (
+                    <p className="bg-red-600 text-lg text-white p-3 rounded ">{error}</p>
                     )}
 
       <label htmlFor="email" className='text-slate-800 mb-2 block text-sm' >Email</label>
