@@ -53,7 +53,7 @@ export  default  function Register() {
             <form onSubmit={onSubmit} className="w-full max-w-sm bg-white p-8 rounded shadow-md">
 
                 {error && (
-                    <span className="bg-red-600 text-sm rounded ">{error}</span>
+                    <span className="bg-red-600 text-white text-lg rounded ">{error}</span>
                     )}
 
                 <label htmlFor="nombre" className='text-slate-800 mb-2 block text-sm' >nombre</label>
