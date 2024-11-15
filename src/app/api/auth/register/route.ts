@@ -17,7 +17,7 @@ export async function POST(request: Request) {
             }
         })
         
-        if(userfound) throw new Error('correo ya existe')
+        if(!userfound) throw new Error('correo ya existe')
         
 
 
