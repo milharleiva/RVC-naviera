@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
-
+import { useState } from 'react'
 
 
 export  default  function Register() {
@@ -12,7 +12,7 @@ export  default  function Register() {
     const {register, handleSubmit, formState: {errors} } = useForm()
     
 
-
+    const [error, SetError] = useState('')
     const router = useRouter()
 
 
@@ -37,9 +37,11 @@ export  default  function Register() {
             }
         })
         
-        if(res.ok) {
-
-            router.push('/auth/login')
+        if (!res.ok) {
+            const errorData = await res.json();
+            SetError(errorData.message || 'An error occurred');
+        } else {
+            router.push('/auth/login');
         }
 
         console.log(errors)
@@ -50,8 +52,8 @@ export  default  function Register() {
             <h1 className="text-3xl font-bold mb-6">Register</h1>
             <form onSubmit={onSubmit} className="w-full max-w-sm bg-white p-8 rounded shadow-md">
 
-                {errors && typeof errors.message === "string" && (
-                    <span className="bg-red-600 text-sm rounded ">{errors.message}</span>
+                {error && (
+                    <span className="bg-red-600 text-sm rounded ">{error}</span>
                     )}
 
                 <label htmlFor="nombre" className='text-slate-800 mb-2 block text-sm' >nombre</label>
