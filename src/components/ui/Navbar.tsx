@@ -20,6 +20,10 @@ export default function Navbar() {
     { name: 'Contacto', href: '/contacto' },
   ]
 
+  if (status === 'authenticated') {
+    navItems.push({ name: 'Dashboard', href: '/dashboard' })
+  }
+
   const handleSignOut = async () => {
     await signOut()
     router.push('/auth/login')
