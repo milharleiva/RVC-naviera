@@ -33,6 +33,7 @@
     "react-datepicker": "^7.5.0",
     "react-dom": "^18",
     "react-hook-form": "^7.53.1",
+    "reactstrap": "^9.2.3",
     "recharts": "^2.13.0",
     "supabase": "^1.219.2",
     "tailwind-merge": "^2.5.4",
