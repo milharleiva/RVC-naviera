@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
-import { User, Package, Calendar, Download, Database, Home, Settings, HelpCircle } from 'lucide-react'
+import { Package, Calendar, Home, Settings, HelpCircle } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
@@ -85,44 +85,6 @@ export default function Dashboard() {
             </CardContent>
           </Card>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center">
-                  <Database className="mr-2" />
-                  Espacio AWS
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-3xl font-semibold text-gray-900">50%</p>
-                <p className="text-sm text-gray-600">128GB usado</p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center">
-                  <Download className="mr-2" />
-                  Descargas Totales
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-3xl font-semibold text-gray-900">2</p>
-                <p className="text-sm text-gray-600">4.3% Menos que Ayer</p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center">
-                  <User className="mr-2" />
-                  Total User
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-3xl font-semibold text-gray-900">5</p>
-                <p className="text-sm text-gray-600">2.5% Más que Ayer</p>
-              </CardContent>
-            </Card>
-          </div>
 
           {/* Feedback section */}
           <Card>
