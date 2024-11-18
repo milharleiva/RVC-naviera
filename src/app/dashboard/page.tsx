@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
-import { Package, Calendar, Home, Settings, HelpCircle } from 'lucide-react'
+import { Package, Calendar,Home, Settings, HelpCircle } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
@@ -85,6 +85,9 @@ export default function Dashboard() {
             </CardContent>
           </Card>
 
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            
+          </div>
 
           {/* Feedback section */}
           <Card>
