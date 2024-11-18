@@ -1,5 +1,7 @@
 'use client'
 
+
+import { useRouter } from 'next/navigation'
 import { useState } from "react"
 import { useSession } from "next-auth/react"
 import { Button } from "@/components/ui/button"
@@ -11,6 +13,8 @@ export function UserProfile() {
   const { data: session } = useSession()
   const [name, setName] = useState(session?.user?.name || "")
   const [email, setEmail] = useState(session?.user?.email || "")
+  const router = useRouter()  
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -47,8 +51,9 @@ export function UserProfile() {
           </div>
         </form>
       </CardContent>
-      <CardFooter>
+      <CardFooter className='justify-between'>
         <Button onClick={handleSubmit}>Guardar cambios</Button>
+        <Button onClick={() => router.push('/dashboard')}>volver</Button>
       </CardFooter>
     </Card>
   )
