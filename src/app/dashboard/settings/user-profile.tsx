@@ -108,7 +108,7 @@ export function UserProfile() {
             </div>
           </form>
         </CardContent>
-        <CardFooter>
+        <CardFooter className="justify-between">
           <Button onClick={handleSubmit} disabled={isLoading}>
             {isLoading ? "Guardando..." : "Guardar cambios"}
           </Button>
