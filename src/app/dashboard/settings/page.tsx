@@ -1,26 +1,27 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useSession } from 'next-auth/react';
-import db from '@/lib/db'; // Asegúrate de ajustar la ruta según tu estructura de proyecto
+import { useSession} from 'next-auth/react';
+import db from '@/lib/db';
 
-export default function Settings() {
+const SettingsPage: React.FC = () => {
   const { data: session } = useSession();
   const [userData, setUserData] = useState<{ name: string; email: string } | null>(null);
 
   useEffect(() => {
-    if (session) {
-      const fetchUserData = async () => {
-        const user = session.user ? await db.usuario.findUnique({
-          where: { email: session.user.email ?? '' },
-        }) : null;
+    const fetchUserData = async () => {
+      if (session?.user?.email) {
+        const user = await db.usuario.findUnique({
+          where: { email: session.user.email },
+        });
+
         if (user) {
           setUserData({ name: `${user.nombre} ${user.apellido}`, email: user.email });
         }
-      };
+      }
+    };
 
-      fetchUserData();
-    }
+    fetchUserData();
   }, [session]);
 
   return (
@@ -36,4 +37,6 @@ export default function Settings() {
       )}
     </div>
   );
-}
+};
+
+export default SettingsPage;
