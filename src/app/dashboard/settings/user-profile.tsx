@@ -7,6 +7,9 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import Notification from "@/components/ui/Notification"
+import { useRouter } from 'next/navigation'
+
+
 
 interface UserData {
   nombre: string
@@ -23,6 +26,9 @@ export function UserProfile() {
     email: string
     telefono: string
   }
+
+
+  const router = useRouter()
 
   const [userData, setUserData] = useState<UserData>({
     nombre: (session?.user as SessionUser)?.nombre || "",
@@ -105,6 +111,9 @@ export function UserProfile() {
         <CardFooter>
           <Button onClick={handleSubmit} disabled={isLoading}>
             {isLoading ? "Guardando..." : "Guardar cambios"}
+          </Button>
+          <Button onClick={() => router.push('/dashboard')}>
+            volver
           </Button>
         </CardFooter>
       </Card>
