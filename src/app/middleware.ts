@@ -1,6 +1,4 @@
 export {default} from 'next-auth/middleware'
 
 
-export const config = {
-    matcher : ["/dashboard", "/dasboard/settings", ]
-}
+export const config = { matcher: ["/dashboard(.*)"] }
