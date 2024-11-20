@@ -64,7 +64,7 @@ export default function LoginPage() {
       <button type="submit" className="p-2 bg-blue-500 text-white   rounded">Login</button>
       </form>
       <div className='flex px-3 '>
-        <p className="mt-4">Dont have an account?</p>
+        <p className="mt-4">no tienes una cuenta?</p>
       <Link  href="/auth/register" className="text-blue-500 mx-3 mt-4"> registrarse</Link>
       </div>
       

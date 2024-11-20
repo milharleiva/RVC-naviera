@@ -82,3 +82,12 @@ model Usuario {
   Boletos      Boleto[]
   Reportes     Reporte[]
 }
+
+model Anuncio {
+  id_anuncio  Int       @id @default(autoincrement())
+  titulo      String    @db.VarChar(100)
+  descripcion String    @db.VarChar(255)
+  importancia String    @default("baja") @db.VarChar(20)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}

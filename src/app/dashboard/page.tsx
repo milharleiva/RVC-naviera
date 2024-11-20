@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button"
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 import Logo from '@/components/ui/Logo'
 import "react-datepicker/dist/react-datepicker.css"
+import { AnuncioForm } from './anuncio-form'
 
 const data = [
   { name: '5k', Sales: 20, Profit: 30 },
@@ -86,7 +87,7 @@ export default function Dashboard() {
           </Card>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-            
+            <AnuncioForm/>
           </div>
 
           {/* Feedback section */}

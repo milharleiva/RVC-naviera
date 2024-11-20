@@ -106,7 +106,7 @@ export  default  function Register() {
                 {}
                 <button type="submit" className="p-2 bg-blue-500 text-white rounded w-full">Register</button>
                 <div className="flex px-3 ">
-                <p className="mt-4">Already have an account?</p>
+                <p className="mt-4">ya tienes una cuenta?</p>
                 <Link href="/auth/login" className="text-blue-500 mx-3 mt-4">Log in</Link>
             </div> 
             </form>
