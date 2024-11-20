@@ -42,6 +42,7 @@ export  default  function Register() {
             SetError(errorData.message || 'An error occurred');
         } else {
             router.push('/auth/login');
+            router.refresh();
         }
 
         console.log(errors)
