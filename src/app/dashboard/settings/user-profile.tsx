@@ -73,6 +73,8 @@ export function UserProfile() {
       setNotification({ message: "Hubo un problema al actualizar tu perfil.", type: 'error' })
     } finally {
       setIsLoading(false)
+      router.push('/dashboard')
+      router.refresh()
     }
   }
 
