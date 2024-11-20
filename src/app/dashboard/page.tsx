@@ -86,11 +86,10 @@ export default function Dashboard() {
             </CardContent>
           </Card>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-            <AnuncioForm/>
-          </div>
 
           {/* Feedback section */}
+          <div className=" justify-between grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+          <AnuncioForm/>
           <Card>
             <CardHeader>
               <CardTitle>Caja De Opiniones y Sugerencia</CardTitle>
@@ -109,6 +108,7 @@ export default function Dashboard() {
               </div>
             </CardContent>
           </Card>
+          </div>
         </main>
       </div>
     </div>

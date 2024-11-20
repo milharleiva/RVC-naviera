@@ -55,8 +55,7 @@ export function AnuncioForm() {
         </form>
       </CardContent>
       <CardFooter className="flex justify-between">
-        <Button variant="outline">Cancel</Button>
-        <Button>Deploy</Button>
+        <Button>enviar anuncio</Button>
       </CardFooter>
     </Card>
   )
