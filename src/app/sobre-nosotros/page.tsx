@@ -1,5 +1,3 @@
-
-
 import Image from 'next/image';
 
 const barcazas = [
@@ -62,11 +60,11 @@ export default function sobrenosotros() {
           </p>
         </div>
         <div className="rounded-xl shadow-lg overflow-hidden">
-          <Image
-            src="/path-to-historia-image.jpg"
-            alt="Historia de la empresa"
-            className="w-full h-64 object-cover"
-          />
+            <Image
+              src={barcazas[0].imagen}
+              alt={barcazas[0].nombre}
+              className="w-full h-64 object-cover"
+            />
         </div>
       </div>
 
