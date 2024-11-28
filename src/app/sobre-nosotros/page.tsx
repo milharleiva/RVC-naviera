@@ -1,72 +1,43 @@
-import { Anchor, Ship, Users, BarChart3 } from "lucide-react";
+import Image from 'next/image';
 
-export default function SobreNosotros() {
-  const barcazas = [
-    {
-      nombre: "Barcaza Cullamó",
-      sector: "Corral",
-      pasajeros: 194,
-      carga: "110m (metros lineales)",
-      imagen: "/extras/cullamo.jpg",
-    },
-    {
-      nombre: "Andalué",
-      sector: "Corral",
-      pasajeros: 219,
-      carga: "110m (metros lineales)",
-      imagen: "/extras/cullamo.jpg",
-    },
-    {
-      nombre: "Epu Huapi",
-      sector: "Futrono",
-      pasajeros: 45,
-      carga: "24m (metros lineales)",
-      imagen: "/extras/cullamo.jpg",
-    },
-    {
-      nombre: "Valentina III",
-      sector: "Trumao",
-      pasajeros: 60,
-      carga: "Sin información",
-      imagen: "/extras/cullamo.jpg",
-    },
-    {
-      nombre: "La Tehuelche",
-      sector: "Chile Chico",
-      pasajeros: 250,
-      carga: "164m (metros lineales)",
-      imagen: "/extras/cullamo.jpg",
-    },
-    {
-      nombre: "Pitipilla",
-      sector: "Chumeldén",
-      pasajeros: 30,
-      carga: "Sin información",
-      imagen: "/extras/cullamo.jpg",
-    },
-  ];
+const barcazas = [
+  {
+    nombre: "Barcaza 1",
+    sector: "Sector 1",
+    pasajeros: 100,
+    carga: "50 toneladas",
+    imagen: "/path-to-barcaza1-image.jpg"
+  },
+  {
+    nombre: "Barcaza 2",
+    sector: "Sector 2",
+    pasajeros: 150,
+    carga: "70 toneladas",
+    imagen: "/path-to-barcaza2-image.jpg"
+  }
+  // Add more barcazas as needed
+];
 
-  const servicios = [
-    {
-      titulo: "Taller de Balzas",
-      descripcion:
-        "Nuestro taller de balzas te proporcionará las habilidades y conocimientos necesarios para desenvolverte de manera segura y eficiente en el uso de estas embarcaciones. Contamos con un equipo de instructores altamente capacitados y con amplia experiencia en el campo, quienes te guiarán a lo largo del proceso de aprendizaje.",
-      imagen: "/images/taller-balzas.jpg",
-    },
-    {
-      titulo: "Cursos y capacitaciones",
-      descripcion:
-        "Entendemos la importancia de la capacitación constante en el entorno laboral actual, donde los conocimientos y habilidades actualizados marcan la diferencia. Es por ello que nos comprometemos a ofrecer programas de capacitación diseñados cuidadosamente, que abarcan una amplia gama de áreas y sectores.",
-      imagen: "/images/cursos-capacitaciones.jpg",
-    },
-    {
-      titulo: "Servicios de Buceo",
-      descripcion:
-        "Nuestro equipo de experimentados buceadores se dedica exclusivamente a realizar tareas de mantenimiento y reparación en los centros de cultivo. Utilizamos las técnicas más avanzadas y equipos especializados para llevar a cabo estas labores de manera eficiente y segura.",
-      imagen: "/images/servicios-buceo.jpg",
-    },
-  ];
+const servicios = [
+  {
+    titulo: "Transporte de Carga",
+    descripcion: "Ofrecemos servicios de transporte de carga a nivel nacional e internacional.",
+    imagen: "/path-to-servicio1-image.jpg"
+  },
+  {
+    titulo: "Transporte de Pasajeros",
+    descripcion: "Servicios de transporte de pasajeros con las mejores comodidades y seguridad.",
+    imagen: "/path-to-servicio2-image.jpg"
+  },
+  {
+    titulo: "Alquiler de Barcazas",
+    descripcion: "Alquiler de barcazas para diferentes necesidades y eventos.",
+    imagen: "/path-to-servicio3-image.jpg"
+  }
+  // Add more servicios as needed
+];
 
+export default function sobrenosotros() {
   return (
     <div className="container mx-auto px-4 py-16">
       {/* Título principal */}
@@ -89,18 +60,18 @@ export default function SobreNosotros() {
           </p>
         </div>
         <div className="rounded-xl shadow-lg overflow-hidden">
-          <img
-            src="/path-to-historia-image.jpg"
-            alt="Historia de la empresa"
-            className="w-full h-64 object-cover"
-          />
+            <Image
+              src={barcazas[0].imagen}
+              alt={barcazas[0].nombre}
+              className="w-full h-64 object-cover"
+            />
         </div>
       </div>
 
       {/* Sección: Misión */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mb-16">
         <div className="rounded-xl shadow-lg overflow-hidden order-2 md:order-1">
-          <img
+          <Image
             src="/path-to-mision-image.jpg"
             alt="Nuestra misión"
             className="w-full h-64 object-cover"
@@ -129,7 +100,7 @@ export default function SobreNosotros() {
           }`}
         >
           <div className="rounded-xl shadow-lg overflow-hidden">
-            <img
+            <Image
               src={barcaza.imagen}
               alt={barcaza.nombre}
               className="w-full h-64 object-cover"
@@ -164,7 +135,7 @@ export default function SobreNosotros() {
             key={index}
             className="bg-blue-900 text-white rounded-xl shadow-lg overflow-hidden"
           >
-            <img
+            <Image
               src={servicio.imagen}
               alt={servicio.titulo}
               className="w-full h-48 object-cover"
