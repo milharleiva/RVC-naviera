@@ -1,5 +1,43 @@
 
-import { Anchor, Ship, Users, BarChart3 } from 'lucide-react'
+
+import Image from 'next/image';
+
+const barcazas = [
+  {
+    nombre: "Barcaza 1",
+    sector: "Sector 1",
+    pasajeros: 100,
+    carga: "50 toneladas",
+    imagen: "/path-to-barcaza1-image.jpg"
+  },
+  {
+    nombre: "Barcaza 2",
+    sector: "Sector 2",
+    pasajeros: 150,
+    carga: "70 toneladas",
+    imagen: "/path-to-barcaza2-image.jpg"
+  }
+  // Add more barcazas as needed
+];
+
+const servicios = [
+  {
+    titulo: "Transporte de Carga",
+    descripcion: "Ofrecemos servicios de transporte de carga a nivel nacional e internacional.",
+    imagen: "/path-to-servicio1-image.jpg"
+  },
+  {
+    titulo: "Transporte de Pasajeros",
+    descripcion: "Servicios de transporte de pasajeros con las mejores comodidades y seguridad.",
+    imagen: "/path-to-servicio2-image.jpg"
+  },
+  {
+    titulo: "Alquiler de Barcazas",
+    descripcion: "Alquiler de barcazas para diferentes necesidades y eventos.",
+    imagen: "/path-to-servicio3-image.jpg"
+  }
+  // Add more servicios as needed
+];
 
 export default function sobrenosotros() {
   return (
@@ -24,7 +62,7 @@ export default function sobrenosotros() {
           </p>
         </div>
         <div className="rounded-xl shadow-lg overflow-hidden">
-          <img
+          <Image
             src="/path-to-historia-image.jpg"
             alt="Historia de la empresa"
             className="w-full h-64 object-cover"
@@ -35,7 +73,7 @@ export default function sobrenosotros() {
       {/* Sección: Misión */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mb-16">
         <div className="rounded-xl shadow-lg overflow-hidden order-2 md:order-1">
-          <img
+          <Image
             src="/path-to-mision-image.jpg"
             alt="Nuestra misión"
             className="w-full h-64 object-cover"
@@ -64,7 +102,7 @@ export default function sobrenosotros() {
           }`}
         >
           <div className="rounded-xl shadow-lg overflow-hidden">
-            <img
+            <Image
               src={barcaza.imagen}
               alt={barcaza.nombre}
               className="w-full h-64 object-cover"
@@ -99,7 +137,7 @@ export default function sobrenosotros() {
             key={index}
             className="bg-blue-900 text-white rounded-xl shadow-lg overflow-hidden"
           >
-            <img
+            <Image
               src={servicio.imagen}
               alt={servicio.titulo}
               className="w-full h-48 object-cover"
