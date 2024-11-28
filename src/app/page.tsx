@@ -1,7 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
 'use client';
 
 import Link from 'next/link';
-import { Ship, Phone, Clock, Star } from 'lucide-react';
 import React from 'react';
 import './globals.css';
 
