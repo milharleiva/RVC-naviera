@@ -134,3 +134,87 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* styles/Home.module.css */
+.transition-all {
+  transition: all 0.5s ease-in-out;
+}
+
+.transform {
+  transform: translateY(0); /* Movimiento vertical */
+}
+
+.bg-blue-200 {
+  background-color: #bfdbfe; /* Color de fondo de ejemplo */
+}
+
+.bg-green-200 {
+  background-color: #d1fae5;
+}
+
+.bg-yellow-200 {
+  background-color: #fef08a;
+}
+
+.celular {
+  width: 30%;
+  height: auto;
+  margin-left: 60%;
+}
+
+.cuadro-izquierda {
+  padding: 20px;
+  width: 40%; /* Ajusta el tamaño del cuadro */
+  position: absolute; /* Lo coloca encima de la imagen del teléfono */
+  top: 50%; /* Centrado verticalmente */
+  left: 0; /* Colocado al lado izquierdo */
+  transform: translateY(-50%); /* Centrado perfecto */
+  z-index: 10; /* Asegúrate de que esté por encima del teléfono */
+}
+
+.instagram {
+  padding: 20px;
+  width: 40%; /* Ajusta el tamaño del cuadro */
+  position: absolute; /* Lo coloca encima de la imagen del teléfono */
+  top: 50%; /* Centrado verticalmente */
+  left: 0; /* Colocado al lado izquierdo */
+  transform: translateY(-100%); 
+  z-index: 10; /* Asegúrate de que esté por encima del teléfono */
+}
+/* Reloj con página giratoria */
+.flip-container {
+  perspective: 1000px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.flip-card {
+  width: 100%;
+  height: 200px;
+  transition: transform 1s;
+  transform-style: preserve-3d;
+}
+
+.flip-card.flipping {
+  transform: rotateY(180deg);
+}
+
+.flip-card p {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.flip-card .text-3xl {
+  font-size: 2rem;
+}
+
+.flip-card .text-xl {
+  font-size: 1.25rem;
+  color: #2D3748;
+}
+
+.flip-card .text-gray-500 {
+  color: #6B7280;
+}

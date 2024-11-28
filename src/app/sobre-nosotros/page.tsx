@@ -1,73 +1,7 @@
-/* eslint-disable @next/next/no-img-element */
 
+import { Anchor, Ship, Users, BarChart3 } from 'lucide-react'
 
-export default function SobreNosotros() {
-  const barcazas = [
-    {
-      nombre: "Barcaza Cullamó",
-      sector: "Corral",
-      pasajeros: 194,
-      carga: "110m (metros lineales)",
-      imagen: "/extras/cullamo.jpg",
-    },
-    {
-      nombre: "Andalué",
-      sector: "Corral",
-      pasajeros: 219,
-      carga: "110m (metros lineales)",
-      imagen: "/extras/cullamo.jpg",
-    },
-    {
-      nombre: "Epu Huapi",
-      sector: "Futrono",
-      pasajeros: 45,
-      carga: "24m (metros lineales)",
-      imagen: "/extras/cullamo.jpg",
-    },
-    {
-      nombre: "Valentina III",
-      sector: "Trumao",
-      pasajeros: 60,
-      carga: "Sin información",
-      imagen: "/extras/cullamo.jpg",
-    },
-    {
-      nombre: "La Tehuelche",
-      sector: "Chile Chico",
-      pasajeros: 250,
-      carga: "164m (metros lineales)",
-      imagen: "/extras/cullamo.jpg",
-    },
-    {
-      nombre: "Pitipilla",
-      sector: "Chumeldén",
-      pasajeros: 30,
-      carga: "Sin información",
-      imagen: "/extras/cullamo.jpg",
-    },
-  ];
-
-  const servicios = [
-    {
-      titulo: "Taller de Balzas",
-      descripcion:
-        "Nuestro taller de balzas te proporcionará las habilidades y conocimientos necesarios para desenvolverte de manera segura y eficiente en el uso de estas embarcaciones. Contamos con un equipo de instructores altamente capacitados y con amplia experiencia en el campo, quienes te guiarán a lo largo del proceso de aprendizaje.",
-      imagen: "/images/taller-balzas.jpg",
-    },
-    {
-      titulo: "Cursos y capacitaciones",
-      descripcion:
-        "Entendemos la importancia de la capacitación constante en el entorno laboral actual, donde los conocimientos y habilidades actualizados marcan la diferencia. Es por ello que nos comprometemos a ofrecer programas de capacitación diseñados cuidadosamente, que abarcan una amplia gama de áreas y sectores.",
-      imagen: "/images/cursos-capacitaciones.jpg",
-    },
-    {
-      titulo: "Servicios de Buceo",
-      descripcion:
-        "Nuestro equipo de experimentados buceadores se dedica exclusivamente a realizar tareas de mantenimiento y reparación en los centros de cultivo. Utilizamos las técnicas más avanzadas y equipos especializados para llevar a cabo estas labores de manera eficiente y segura.",
-      imagen: "/images/servicios-buceo.jpg",
-    },
-  ];
-
+export default function sobrenosotros() {
   return (
     <div className="container mx-auto px-4 py-16">
       {/* Título principal */}
