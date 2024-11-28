@@ -37,8 +37,8 @@ export default function RutasYTarifas() {
     let nextDeparture = null;
 
     // Buscar la próxima salida de la barcaza
-    for (let dia of horarios) {
-      for (let salida of dia.salidas) {
+    for (const dia of horarios) {
+      for (const salida of dia.salidas) {
         const [hour, minute] = salida.split(':').map(Number);
         if (hour > currentHour || (hour === currentHour && minute > currentMinutes)) {
           nextDeparture = `${hour}:${minute < 10 ? '0' : ''}${minute}`;
