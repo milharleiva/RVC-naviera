@@ -135,12 +135,21 @@ export default function Home() {
     <h2 className="text-4xl font-bold text-gray-900 my-4">
       Navega con nosotros
     </h2>
+    
     <p className="text-gray-600 text-lg leading-relaxed">
       Reserva tu lugar en nuestro próximo viaje y déjate sorprender por la
       belleza natural del sur de Chile. Ya sea que regreses a casa, viajes por
       trabajo o estés de vacaciones, ¡te esperamos a bordo!
+
+      
     </p>
+
+
+
+    
   </div>
+
+  
 
   {/* Imagen a la derecha */}
   <div className="flex-1">
@@ -151,6 +160,12 @@ export default function Home() {
     />
   </div>
 </div>
+<Link
+      href="/rutas-y-tarifas"
+      className="bg-red-600 hover:bg-red-700 text-white py-3 px-6 rounded-lg text-lg font-semibold"
+    >
+      Rutas y tarifas &rarr;
+    </Link>
 
 
 
