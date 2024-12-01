@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import {
-  Phone, Mail, MapPin, Facebook, Twitter, Linkedin, Clock, Share2,
+  Phone, Mail, MapPin, Facebook, Twitter, Linkedin,Share2,
 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
