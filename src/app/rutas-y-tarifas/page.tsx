@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 'use client'
 
 import { useState, useEffect } from 'react'
@@ -7,7 +8,7 @@ import { Ship, DollarSign } from 'lucide-react'
 const contenedores = [1, 2, 3, 4, 5];
 
 // Datos de los horarios para la ruta Futrono
-const horariosFutrono = {
+const horariosFutrono: { [key: string]: string[] } = {
   lunes: ["10:30 am", "18:00 pm"],
   martes: ["10:30 am", "18:00 pm"],
   miercoles: ["10:30 am", "18:00 pm"],
@@ -53,7 +54,7 @@ export default function RutasYTarifas() {
   // Función para calcular la próxima salida de Futrono
   const calcularSalidaFutrono = () => {
     const now = new Date();
-    const currentDay = now.toLocaleString('default', { weekday: 'long' }).toLowerCase();
+    const currentDay = now.toLocaleString('default', { weekday: 'long' }).toLowerCase() as keyof typeof horariosFutrono;
     const currentHour = now.getHours();
     const currentMinutes = now.getMinutes();
 
