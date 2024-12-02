@@ -45,11 +45,7 @@ export default function Dashboard() {
       <div className="w-64 bg-white shadow-md">
         <div className="p-4">
           <div className="flex items-center mb-6">
-            {loading ? (
-              <Skeleton className="h-12 w-12 mr-2" />
-            ) : (
-              <Logo className="h-12 w-12 mr-2" />
-            )}
+            <Logo className="h-12 w-12 mr-2" />
             <span className="text-2xl font-bold text-gray-800">RVC Dashboard</span>
           </div>
           <div className="space-y-2">
@@ -72,11 +68,7 @@ export default function Dashboard() {
         </div>
         <div className="p-4 border-t">
           <p className="text-sm text-gray-600">Conectado como:</p>
-          {loading ? (
-            <Skeleton className="h-6 w-3/4" />
-          ) : (
-            <p className="font-semibold">{session?.user?.name}</p>
-          )}
+          <p className="font-semibold">{session?.user?.name}</p>
         </div>
       </div>
 
