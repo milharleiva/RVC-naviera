@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 import Logo from '@/components/ui/Logo'
+import {Skeleton} from '@/components/ui/skeleton' // Importa tu componente Skeleton
 import "react-datepicker/dist/react-datepicker.css"
 import { AnuncioForm } from './anuncio-form'
 
@@ -74,8 +75,14 @@ export default function Dashboard() {
       {/* Main content */}
       <div className="flex-1 overflow-auto">
         {loading ? (
-          <div className="flex h-full items-center justify-center">
-            <div className="text-2xl font-bold">Cargando...</div>
+          <div className="p-6">
+            <Skeleton className="h-8 w-1/4 mb-6" />
+            <Skeleton className="h-64 w-full mb-6" />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <Skeleton className="h-48 w-full" />
+              <Skeleton className="h-48 w-full" />
+              <Skeleton className="h-48 w-full" />
+            </div>
           </div>
         ) : (
           <main className="p-6">
