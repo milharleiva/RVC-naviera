@@ -101,7 +101,18 @@ export function UserProfile() {
                     value={userData[field]}
                     onChange={handleChange}
                     type={field === 'email' ? 'email' : 'text'}
+                    defaultValue={userData[field]}
                   />
+                  {field === 'telefono' && (
+                    <Input
+                      id={field}
+                      name={field}
+                      value={userData[field]}
+                      onChange={handleChange}
+                      type="tel"
+                      defaultValue={userData[field]}
+                    />
+                  )}
                 </div>
               ))}
             </div>
