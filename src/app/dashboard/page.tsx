@@ -2,7 +2,8 @@
 
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
-import { Package, Calendar,Home, Settings, HelpCircle } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { Package, Calendar, Home, Settings, HelpCircle } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
@@ -28,10 +29,27 @@ const data = [
 export default function Dashboard() {
   const { data: session } = useSession()
   const router = useRouter()
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    // Simulate loading delay
+    const timer = setTimeout(() => {
+      setLoading(false)
+    }, 1000)
+    return () => clearTimeout(timer)
+  }, [])
+
+  if (loading) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <div className="text-2xl font-bold">Cargando...</div>
+      </div>
+    )
+  }
 
   return (
     <div className="flex h-screen bg-gray-100">
-      <div className="w-64 bg-white shadow-md">
+      <div className="w-64 bg-white shadow-md hidden md:block">
         <div className="p-4">
           <div className="flex items-center mb-6">
             <Logo className="h-12 w-12 mr-2" />
@@ -58,7 +76,6 @@ export default function Dashboard() {
         <div className="p-4 border-t">
           <p className="text-sm text-gray-600">Conectado como:</p>
           <p className="font-semibold">{session?.user?.name}</p>
-         
         </div>
       </div>
 
@@ -86,28 +103,27 @@ export default function Dashboard() {
             </CardContent>
           </Card>
 
-
           {/* Feedback section */}
-          <div className=" justify-between grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-          <AnuncioForm/>
-          <Card>
-            <CardHeader>
-              <CardTitle>Caja De Opiniones y Sugerencia</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2">
-                <div className="bg-gray-200 p-2 rounded">
-                  <span className="font-bold">Juilo Jalat:</span> Lorem Ipsum Dolorem
+          <div className="justify-between grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <AnuncioForm />
+            <Card>
+              <CardHeader>
+                <CardTitle>Caja De Opiniones y Sugerencia</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2">
+                  <div className="bg-gray-200 p-2 rounded">
+                    <span className="font-bold">Juilo Jalat:</span> Lorem Ipsum Dolorem
+                  </div>
+                  <div className="bg-gray-200 p-2 rounded">
+                    <span className="font-bold">Minerva Barnett:</span> Buen Servicio
+                  </div>
+                  <div className="bg-gray-200 p-2 rounded">
+                    <span className="font-bold">Peter Lewis:</span> Siento que Podrian Mejorar T...
+                  </div>
                 </div>
-                <div className="bg-gray-200 p-2 rounded">
-                  <span className="font-bold">Minerva Barnett:</span> Buen Servicio
-                </div>
-                <div className="bg-gray-200 p-2 rounded">
-                  <span className="font-bold">Peter Lewis:</span> Siento que Podrian Mejorar T...
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
           </div>
         </main>
       </div>
