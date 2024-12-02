@@ -9,8 +9,6 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import Notification from "@/components/ui/Notification"
 import { useRouter } from 'next/navigation'
 
-
-
 interface UserData {
   nombre: string
   apellido: string
@@ -26,7 +24,6 @@ export function UserProfile() {
     email: string
     telefono: string
   }
-
 
   const router = useRouter()
 
@@ -108,16 +105,16 @@ export function UserProfile() {
                 </div>
               ))}
             </div>
+            <CardFooter className="justify-between">
+              <Button type="submit" disabled={isLoading}>
+                {isLoading ? "Guardando..." : "Guardar cambios"}
+              </Button>
+              <Button type="button" onClick={() => router.push('/dashboard')}>
+                Volver
+              </Button>
+            </CardFooter>
           </form>
         </CardContent>
-        <CardFooter className="justify-between">
-          <Button onClick={handleSubmit} disabled={isLoading}>
-            {isLoading ? "Guardando..." : "Guardar cambios"}
-          </Button>
-          <Button onClick={() => router.push('/dashboard')}>
-            volver
-          </Button>
-        </CardFooter>
       </Card>
     </>
   )
