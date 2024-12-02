@@ -39,17 +39,9 @@ export default function Dashboard() {
     return () => clearTimeout(timer)
   }, [])
 
-  if (loading) {
-    return (
-      <div className="flex h-screen items-center justify-center">
-        <div className="text-2xl font-bold">Cargando...</div>
-      </div>
-    )
-  }
-
   return (
     <div className="flex h-screen bg-gray-100">
-      <div className="w-64 bg-white shadow-md hidden md:block">
+      <div className="w-64 bg-white shadow-md">
         <div className="p-4">
           <div className="flex items-center mb-6">
             <Logo className="h-12 w-12 mr-2" />
@@ -81,51 +73,57 @@ export default function Dashboard() {
 
       {/* Main content */}
       <div className="flex-1 overflow-auto">
-        <main className="p-6">
-          <h1 className="text-3xl font-bold text-gray-800 mb-6">Dashboard</h1>
+        {loading ? (
+          <div className="flex h-full items-center justify-center">
+            <div className="text-2xl font-bold">Cargando...</div>
+          </div>
+        ) : (
+          <main className="p-6">
+            <h1 className="text-3xl font-bold text-gray-800 mb-6">Dashboard</h1>
 
-          {/* Area Chart */}
-          <Card className="mb-6">
-            <CardHeader>
-              <CardTitle>Uso de la App y Ventas</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ResponsiveContainer width="100%" height={300}>
-                <AreaChart data={data}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Area type="monotone" dataKey="Sales" stackId="1" stroke="#8884d8" fill="#8884d8" />
-                  <Area type="monotone" dataKey="Profit" stackId="1" stroke="#82ca9d" fill="#82ca9d" />
-                </AreaChart>
-              </ResponsiveContainer>
-            </CardContent>
-          </Card>
-
-          {/* Feedback section */}
-          <div className="justify-between grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-            <AnuncioForm />
-            <Card>
+            {/* Area Chart */}
+            <Card className="mb-6">
               <CardHeader>
-                <CardTitle>Caja De Opiniones y Sugerencia</CardTitle>
+                <CardTitle>Uso de la App y Ventas</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-2">
-                  <div className="bg-gray-200 p-2 rounded">
-                    <span className="font-bold">Juilo Jalat:</span> Lorem Ipsum Dolorem
-                  </div>
-                  <div className="bg-gray-200 p-2 rounded">
-                    <span className="font-bold">Minerva Barnett:</span> Buen Servicio
-                  </div>
-                  <div className="bg-gray-200 p-2 rounded">
-                    <span className="font-bold">Peter Lewis:</span> Siento que Podrian Mejorar T...
-                  </div>
-                </div>
+                <ResponsiveContainer width="100%" height={300}>
+                  <AreaChart data={data}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    <Tooltip />
+                    <Area type="monotone" dataKey="Sales" stackId="1" stroke="#8884d8" fill="#8884d8" />
+                    <Area type="monotone" dataKey="Profit" stackId="1" stroke="#82ca9d" fill="#82ca9d" />
+                  </AreaChart>
+                </ResponsiveContainer>
               </CardContent>
             </Card>
-          </div>
-        </main>
+
+            {/* Feedback section */}
+            <div className="justify-between grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+              <AnuncioForm />
+              <Card>
+                <CardHeader>
+                  <CardTitle>Caja De Opiniones y Sugerencia</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2">
+                    <div className="bg-gray-200 p-2 rounded">
+                      <span className="font-bold">Juilo Jalat:</span> Lorem Ipsum Dolorem
+                    </div>
+                    <div className="bg-gray-200 p-2 rounded">
+                      <span className="font-bold">Minerva Barnett:</span> Buen Servicio
+                    </div>
+                    <div className="bg-gray-200 p-2 rounded">
+                      <span className="font-bold">Peter Lewis:</span> Siento que Podrian Mejorar T...
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </main>
+        )}
       </div>
     </div>
   )
