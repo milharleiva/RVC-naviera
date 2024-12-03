@@ -70,8 +70,7 @@ export function SettingsForm({ user }: SettingsFormProps) {
   }
 
   return (
-    <div className=' items-center justify-center min-h-screen'>
-    <Card className="col-span-4">
+    <Card className="col-span-4 ">
       {notification && (
         <Notification
           message={notification.message}
@@ -160,6 +159,5 @@ export function SettingsForm({ user }: SettingsFormProps) {
         </Form>
       </CardContent>
     </Card>
-    </div>
   )
 }
