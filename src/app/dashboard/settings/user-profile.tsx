@@ -9,7 +9,6 @@ import * as z from "zod"
 import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { useToast } from "@/hooks/use-toast"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import Notification from "@/components/ui/Notification"
 
@@ -33,7 +32,6 @@ type SettingsFormProps = {
 export function SettingsForm({ user }: SettingsFormProps) {
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
-  const { toast } = useToast()
   const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null)
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -61,22 +59,14 @@ export function SettingsForm({ user }: SettingsFormProps) {
         throw new Error('Error al actualizar el perfil')
       }
 
-      toast({
-        title: "Perfil actualizado",
-        description: "Tu información ha sido actualizada exitosamente.",
-      })
       setNotification({ message: "Tu información ha sido actualizada exitosamente.", type: 'success' })
       router.refresh()
     } catch {
-      toast({
-        title: "Error",
-        description: "No se pudo actualizar tu perfil. Por favor intenta de nuevo.",
-        variant: "destructive",
-      })
       setNotification({ message: "Hubo un problema al actualizar tu perfil.", type: 'error' })
     } finally {
       setIsLoading(false)
-      
+      router.push('/dashboard')
+      router.refresh()
     }
   }
 
