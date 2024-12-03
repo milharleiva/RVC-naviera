@@ -150,7 +150,7 @@ export function SettingsForm({ user }: SettingsFormProps) {
                 <p className="text-sm text-muted-foreground">Última actualización: {new Date(user.updatedAt).toLocaleDateString()}</p>
               </div>
               <Button variant="secondary" onClick={() => router.push('/dashboard')}>cancel</Button>
-              <Button type="submit" disabled={isLoading}>
+              <Button type="submit" disabled={isLoading} onClick={() => router.push('/dashboard')}>
                 {isLoading ? "Guardando cambios..." : "Guardar cambios"}
               </Button>
             </div>
