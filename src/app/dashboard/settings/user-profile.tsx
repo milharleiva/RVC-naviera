@@ -11,6 +11,7 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from "@/components/ui/input"
 import { useToast } from "@/hooks/use-toast"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import Notification from "@/components/ui/Notification"
 
 const formSchema = z.object({
   nombre: z.string().min(2, {
@@ -33,6 +34,7 @@ export function SettingsForm({ user }: SettingsFormProps) {
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
   const { toast } = useToast()
+  const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null)
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -63,6 +65,7 @@ export function SettingsForm({ user }: SettingsFormProps) {
         title: "Perfil actualizado",
         description: "Tu información ha sido actualizada exitosamente.",
       })
+      setNotification({ message: "Tu información ha sido actualizada exitosamente.", type: 'success' })
       router.refresh()
     } catch {
       toast({
@@ -70,13 +73,22 @@ export function SettingsForm({ user }: SettingsFormProps) {
         description: "No se pudo actualizar tu perfil. Por favor intenta de nuevo.",
         variant: "destructive",
       })
+      setNotification({ message: "Hubo un problema al actualizar tu perfil.", type: 'error' })
     } finally {
       setIsLoading(false)
+      router.push('/dashboard')
     }
   }
 
   return (
     <Card className="col-span-4">
+      {notification && (
+        <Notification
+          message={notification.message}
+          type={notification.type}
+          onClose={() => setNotification(null)}
+        />
+      )}
       <CardHeader>
         <CardTitle>Información Personal</CardTitle>
         <CardDescription>
@@ -150,7 +162,7 @@ export function SettingsForm({ user }: SettingsFormProps) {
                 <p className="text-sm text-muted-foreground">Última actualización: {new Date(user.updatedAt).toLocaleDateString()}</p>
               </div>
               <Button variant="secondary" onClick={() => router.push('/dashboard')}>cancel</Button>
-              <Button type="submit" disabled={isLoading} onClick={() => router.push('/dashboard')}>
+              <Button type="submit" disabled={isLoading} >
                 {isLoading ? "Guardando cambios..." : "Guardar cambios"}
               </Button>
             </div>
