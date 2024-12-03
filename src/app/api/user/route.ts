@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server'
 import { getServerSession } from "next-auth/next"
 import db from "@/lib/db"
-import { authOptions } from "@/app/api/auth/[...nextauth]/route"
+
 
 export async function PUT(request: Request) {
-  const session = await getServerSession(authOptions)
+  const session = await getServerSession()
   if (!session || !session.user) {
     return NextResponse.json(
       { error: "No autorizado" },
