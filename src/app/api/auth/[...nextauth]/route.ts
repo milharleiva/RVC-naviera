@@ -3,7 +3,7 @@ import CredentialProvider from 'next-auth/providers/credentials';
 import db from '@/lib/db';
 import bcrypt from 'bcrypt';
 
-const authOptions = {
+ export const authOptions = {
   providers: [
     CredentialProvider({
       name: 'credentials',
@@ -43,5 +43,3 @@ const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST }
 
-// Exportamos authOptions de una manera que no interfiera con la ruta de la API
-export const getAuthOptions = () => authOptions;
