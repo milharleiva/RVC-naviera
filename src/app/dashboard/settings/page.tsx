@@ -1,10 +1,11 @@
 import { getServerSession } from "next-auth/next"
 import { redirect } from "next/navigation"
-import { authOptions } from "@/app/api/auth/[...nextauth]/route"
+import { getAuthOptions } from "@/app/api/auth/[...nextauth]/route"
 import db from "@/lib/db"
 import { SettingsForm } from "./user-profile"
 
 export default async function SettingsPage() {
+  const authOptions = getAuthOptions()
   const session = await getServerSession(authOptions)
   
   if (!session) {

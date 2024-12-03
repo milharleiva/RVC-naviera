@@ -3,7 +3,7 @@ import CredentialProvider from 'next-auth/providers/credentials';
 import db from '@/lib/db';
 import bcrypt from 'bcrypt';
 
-export const authOptions = {
+const authOptions = {
   providers: [
     CredentialProvider({
       name: 'credentials',
@@ -11,7 +11,8 @@ export const authOptions = {
         email: {label: 'Email', type: 'email'},
         password: {label: 'Password', type: 'password'}
       },
-      async authorize(credentials) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      async authorize(credentials, req) {
         const userfound = await db.usuario.findUnique({
           where: {
             email: credentials?.email
@@ -41,3 +42,6 @@ export const authOptions = {
 const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST }
+
+// Exportamos authOptions de una manera que no interfiera con la ruta de la API
+export const getAuthOptions = () => authOptions;
