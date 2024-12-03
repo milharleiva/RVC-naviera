@@ -6,26 +6,11 @@ import { useState, useEffect } from 'react'
 import { Package, Calendar, Home, Settings, HelpCircle } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 import Logo from '@/components/ui/Logo'
 import {Skeleton} from '@/components/ui/skeleton' // Importa tu componente Skeleton
 import "react-datepicker/dist/react-datepicker.css"
 import { AnuncioForm } from './anuncio-form'
 
-const data = [
-  { name: '5k', Sales: 20, Profit: 30 },
-  { name: '10k', Sales: 40, Profit: 35 },
-  { name: '15k', Sales: 30, Profit: 45 },
-  { name: '20k', Sales: 50, Profit: 40 },
-  { name: '25k', Sales: 35, Profit: 55 },
-  { name: '30k', Sales: 70, Profit: 60 },
-  { name: '35k', Sales: 40, Profit: 80 },
-  { name: '40k', Sales: 60, Profit: 70 },
-  { name: '45k', Sales: 50, Profit: 65 },
-  { name: '50k', Sales: 90, Profit: 75 },
-  { name: '55k', Sales: 70, Profit: 85 },
-  { name: '60k', Sales: 100, Profit: 90 },
-]
 
 export default function Dashboard() {
   const { data: session } = useSession()
@@ -97,23 +82,7 @@ export default function Dashboard() {
             <h1 className="text-3xl font-bold text-gray-800 mb-6">Dashboard</h1>
 
             {/* Area Chart */}
-            <Card className="mb-6">
-              <CardHeader>
-                <CardTitle>Uso de la App y Ventas</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ResponsiveContainer width="100%" height={300}>
-                  <AreaChart data={data}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
-                    <YAxis />
-                    <Tooltip />
-                    <Area type="monotone" dataKey="Sales" stackId="1" stroke="#8884d8" fill="#8884d8" />
-                    <Area type="monotone" dataKey="Profit" stackId="1" stroke="#82ca9d" fill="#82ca9d" />
-                  </AreaChart>
-                </ResponsiveContainer>
-              </CardContent>
-            </Card>
+            
 
             {/* Feedback section */}
             <div className="justify-between grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
