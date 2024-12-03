@@ -3,7 +3,7 @@ import CredentialProvider from 'next-auth/providers/credentials';
 import db from '@/lib/db';
 import bcrypt from 'bcrypt';
 
- export const authOptions = {
+const authOptions = {
   providers: [
     CredentialProvider({
       name: 'credentials',
@@ -12,7 +12,7 @@ import bcrypt from 'bcrypt';
         password: {label: 'Password', type: 'password'}
       },
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         const userfound = await db.usuario.findUnique({
           where: {
             email: credentials?.email
@@ -39,7 +39,6 @@ import bcrypt from 'bcrypt';
   }
 }
 
-const handler = NextAuth(authOptions);
-
-export { handler as GET, handler as POST }
+export { authOptions };
+export default NextAuth(authOptions);
 
