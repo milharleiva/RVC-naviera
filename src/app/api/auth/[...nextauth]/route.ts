@@ -11,8 +11,7 @@ export const authOptions = {
         email: {label: 'Email', type: 'email'},
         password: {label: 'Password', type: 'password'}
       },
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         const userfound = await db.usuario.findUnique({
           where: {
             email: credentials?.email
