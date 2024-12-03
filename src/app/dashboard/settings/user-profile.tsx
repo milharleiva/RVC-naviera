@@ -70,7 +70,7 @@ export function SettingsForm({ user }: SettingsFormProps) {
   }
 
   return (
-    <Card className="col-span-4">
+    <Card className="col-span-4 flex flex-col items-center justify-center min-h-screen">
       {notification && (
         <Notification
           message={notification.message}
