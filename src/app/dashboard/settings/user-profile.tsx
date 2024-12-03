@@ -11,7 +11,6 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from "@/components/ui/input"
 import { useToast } from "@/hooks/use-toast"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 const formSchema = z.object({
   nombre: z.string().min(2, {
@@ -24,7 +23,6 @@ const formSchema = z.object({
     message: "Por favor ingresa un correo electrónico válido.",
   }),
   telefono: z.string().optional(),
-  tipo_usuario: z.enum(["turista", "administrador"]),
 })
 
 type SettingsFormProps = {
@@ -42,15 +40,14 @@ export function SettingsForm({ user }: SettingsFormProps) {
       nombre: user.nombre,
       apellido: user.apellido,
       email: user.email,
-      telefono: user.telefono || "",
-      tipo_usuario: user.tipo_usuario as "turista" | "administrador",
+      telefono: user.telefono || ""
     },
   })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true)
     try {
-      const response = await fetch('/api/user/update', {
+      const response = await fetch('/api/user', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -146,30 +143,9 @@ export function SettingsForm({ user }: SettingsFormProps) {
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="tipo_usuario"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Tipo de Usuario</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Selecciona el tipo de usuario" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="turista">Turista</SelectItem>
-                      <SelectItem value="administrador">Administrador</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            
             <div className="flex justify-between items-center">
               <div>
-                <p className="text-sm text-muted-foreground">ID de Usuario: {user.id_usuario}</p>
                 <p className="text-sm text-muted-foreground">Creado el: {new Date(user.createdAt).toLocaleDateString()}</p>
                 <p className="text-sm text-muted-foreground">Última actualización: {new Date(user.updatedAt).toLocaleDateString()}</p>
               </div>
