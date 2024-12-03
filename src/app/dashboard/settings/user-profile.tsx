@@ -65,7 +65,6 @@ export function SettingsForm({ user }: SettingsFormProps) {
       setNotification({ message: "Hubo un problema al actualizar tu perfil.", type: 'error' })
     } finally {
       setIsLoading(false)
-      router.push('/dashboard')
       router.refresh()
     }
   }
@@ -151,7 +150,7 @@ export function SettingsForm({ user }: SettingsFormProps) {
                 <p className="text-sm text-muted-foreground">Creado el: {new Date(user.createdAt).toLocaleDateString()}</p>
                 <p className="text-sm text-muted-foreground">Última actualización: {new Date(user.updatedAt).toLocaleDateString()}</p>
               </div>
-              <Button variant="secondary" onClick={() => router.push('/dashboard')}>cancel</Button>
+              <Button variant="secondary" onClick={() => router.push('/dashboard')}>volver</Button>
               <Button type="submit" disabled={isLoading} >
                 {isLoading ? "Guardando cambios..." : "Guardar cambios"}
               </Button>
