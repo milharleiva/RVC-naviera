@@ -1,31 +1,38 @@
 import { NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth/next'
+import { getServerSession } from "next-auth/next"
 import db from "@/lib/db"
+import { authOptions } from "@/app/api/auth/[...nextauth]/route"
 
-export async function PUT(req: Request) {
-  const session = await getServerSession()
-
+export async function PUT(request: Request) {
+  const session = await getServerSession(authOptions)
   if (!session || !session.user) {
-    return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
+    return NextResponse.json(
+      { error: "No autorizado" },
+      { status: 401 }
+    )
   }
 
-  const body = await req.json()
-  const { nombre, apellido, email, telefono } = body
-
   try {
+    const body = await request.json()
+    const { nombre, apellido, email, telefono, tipo_usuario } = body
+
     const updatedUser = await db.usuario.update({
-      where: { email: session.user.email! },
+      where: { email: session.user.email ?? undefined },
       data: { 
         nombre, 
-        apellido, 
-        email, 
-        telefono 
+        apellido,
+        email,
+        telefono,
+        tipo_usuario,
       },
     })
 
-    return NextResponse.json(updatedUser)
+    return NextResponse.json({ user: updatedUser })
   } catch (error) {
-    console.error('Error al actualizar el usuario:', error)
-    return NextResponse.json({ error: 'Error al actualizar el perfil' }, { status: 500 })
+    console.error("Error al actualizar el usuario:", error)
+    return NextResponse.json(
+      { error: "Error al actualizar el perfil" },
+      { status: 500 }
+    )
   }
 }
