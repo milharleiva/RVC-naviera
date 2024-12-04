@@ -37,9 +37,9 @@ export default function Dashboard() {
     return null
   }
 
-  const isAdmin = (session?.user as { tipo_usuario?: string })?.tipo_usuario === 'admin'
+  const isAdmin = (session?.user as { tipo_usuario?: string })?.tipo_usuario == 'admin'
   console.log(isAdmin)
-  console.log(User)
+  console.log(session)
   const NavContent = () => (
     <div className="flex flex-col h-full">
       <div className="flex items-center p-4 mb-6">
