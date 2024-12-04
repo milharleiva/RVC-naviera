@@ -35,7 +35,18 @@ export default function DashboardPage() {
       }
 
       const user = await db.usuario.findUnique({
-        where: { email: session.user?.email ?? undefined }
+        where: { email: session.user?.email ?? undefined },
+        select: {
+          id_usuario: true,
+          nombre: true,
+          apellido: true,
+          email: true,
+          password: true,
+          tipo_usuario: true,
+          telefono: true,
+          createdAt: true,
+          updatedAt: true
+        }
       })
 
       if (!user) {
@@ -56,7 +67,16 @@ export default function DashboardPage() {
 }
 
 
-function DashboardClient({ user }: { user: { id_usuario: number; nombre: string; apellido: string; email: string; password: string; tipo_usuario: string; telefono: string | null; createdAt: Date; updatedAt: Date; } }) {
+function DashboardClient({ user }: { user: {
+  id_usuario: number;
+  nombre: string;
+  apellido: string;
+  email: string;
+  tipo_usuario: string;
+  telefono: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+} }) {
   const router = useRouter()
   const [loading, setLoading] = useState(true)
 
@@ -71,8 +91,9 @@ function DashboardClient({ user }: { user: { id_usuario: number; nombre: string;
     }
   })
 
-  const watchedFields = watch()
-  const isAdmin = watchedFields.tipo_usuario === 'admin'
+  const isAdmin = user.tipo_usuario === 'admin'
+  console.log('Tipo de usuario:', user.tipo_usuario) // Para depuración
+  console.log('Es admin:', isAdmin) // Para depuración
 
   useEffect(() => {
     if (user) {
@@ -109,7 +130,7 @@ function DashboardClient({ user }: { user: { id_usuario: number; nombre: string;
       </div>
       <div className="p-4 border-t mt-auto">
         <p className="text-sm text-gray-600">Conectado como:</p>
-        <p className="font-semibold">{watchedFields.nombre} {watchedFields.apellido}</p>
+        <p className="font-semibold">{user.nombre} {user.apellido}</p>
       </div>
     </div>
   )
@@ -158,18 +179,18 @@ function DashboardClient({ user }: { user: { id_usuario: number; nombre: string;
                 <div className="flex items-center space-x-4">
                   <User className="h-12 w-12 text-gray-400" />
                   <div>
-                    <p className="text-xl font-semibold">{watchedFields.nombre} {watchedFields.apellido}</p>
-                    <p className="text-gray-500">{watchedFields.email}</p>
+                    <p className="text-xl font-semibold">{user.nombre} {user.apellido}</p>
+                    <p className="text-gray-500">{user.email}</p>
                   </div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <p className="text-sm font-medium text-gray-500">Tipo de Usuario</p>
-                    <p>{watchedFields.tipo_usuario}</p>
+                    <p>{user.tipo_usuario}</p>
                   </div>
                   <div>
                     <p className="text-sm font-medium text-gray-500">Teléfono</p>
-                    <p>{watchedFields.telefono || 'No especificado'}</p>
+                    <p>{user.telefono || 'No especificado'}</p>
                   </div>
                 </div>
               </div>
@@ -229,3 +250,4 @@ const DashboardSkeleton = () => (
     </div>
   </div>
 )
+
