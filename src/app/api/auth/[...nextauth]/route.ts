@@ -5,7 +5,7 @@ import db from '@/lib/db';
 
 interface CustomUser {
     id: string;
-    rol: string;
+    tipo_usuario?: string;
     name?: string | null;
     email?: string | null;
     image?: string | null;
@@ -67,14 +67,14 @@ const authOptions: NextAuthOptions = {
         async jwt({ token, user }) {
             if (user) {
                 token.id = user.id;
-                token.rol = (user as CustomUser).rol;
+                token.rol = (user as CustomUser).tipo_usuario;
             }
             return token;
         },
         async session({ session, token }) {
             session.user = {
                 id: token.id as string,
-                rol: token.rol as string,
+                tipo_usuario: token.rol as string,
                 name: session.user?.name || null,
                 email: session.user?.email || null,
                 image: session.user?.image || null,
