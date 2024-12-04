@@ -38,7 +38,8 @@ const authOptions =
                    return {
                     id: userfound.id_usuario.toString(),
                     name: userfound.nombre,
-                    email: userfound.email
+                    email: userfound.email,
+                    rol: userfound.tipo_usuario
                    }
 
                     
