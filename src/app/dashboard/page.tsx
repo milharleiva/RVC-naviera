@@ -11,6 +11,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import Logo from '@/components/ui/Logo'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useForm } from "react-hook-form"
+
 export default function DashboardPage() {
   const [user, setUser] = useState<{
     id_usuario: number;
@@ -55,12 +56,11 @@ export default function DashboardPage() {
   return <DashboardClient user={user} />
 }
 
-
 function DashboardClient({ user }: { user: { id_usuario: number; nombre: string; apellido: string; email: string; password: string; tipo_usuario: string; telefono: string | null; createdAt: Date; updatedAt: Date; } }) {
   const router = useRouter()
   const [loading, setLoading] = useState(true)
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { watch } = useForm({
     defaultValues: {
       nombre: user?.nombre || '',
@@ -136,12 +136,15 @@ function DashboardClient({ user }: { user: { id_usuario: number; nombre: string;
 
       {/* Main content */}
       <div className="flex-1 flex flex-col overflow-hidden">
-        {/* Top bar for mobile */}
-        <header className="md:hidden bg-white shadow-md p-4 flex items-center justify-between">
-          <Logo className="h-8 w-8" />
-          <Sheet>
+        {/* Top bar for all screen sizes */}
+        <div className="bg-white shadow-md p-4 flex items-center justify-between md:justify-end">
+          <div className="flex items-center md:hidden">
+            <Logo className="h-8 w-8 mr-2" />
+            <span className="text-xl font-bold text-gray-800">RVC Dashboard</span>
+          </div>
+          <Sheet open={isSidebarOpen} onOpenChange={setIsSidebarOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon">
+              <Button variant="ghost" size="icon" className="md:hidden">
                 <Menu className="h-6 w-6" />
               </Button>
             </SheetTrigger>
@@ -149,7 +152,7 @@ function DashboardClient({ user }: { user: { id_usuario: number; nombre: string;
               <NavContent />
             </SheetContent>
           </Sheet>
-        </header>
+        </div>
 
         {/* Scrollable content area */}
         <main className="flex-1 overflow-auto p-4 md:p-6">
