@@ -3,14 +3,14 @@
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { useState, useEffect } from 'react'
-import { Package, Calendar, Home, Settings, HelpCircle } from 'lucide-react'
+import { Package, Calendar, Home, Settings, HelpCircle, Menu, User } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import Logo from '@/components/ui/Logo'
-import {Skeleton} from '@/components/ui/skeleton' // Importa tu componente Skeleton
+import { Skeleton } from '@/components/ui/skeleton'
 import "react-datepicker/dist/react-datepicker.css"
 import { AnuncioForm } from './anuncio-form'
-
 
 export default function Dashboard() {
   const { data: session } = useSession()
@@ -18,97 +18,184 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Simulate loading delay
     const timer = setTimeout(() => {
       setLoading(false)
     }, 1000)
     return () => clearTimeout(timer)
   }, [])
 
-  return (
-    <div className="flex h-screen bg-gray-100">
-      <div className="w-64 bg-white shadow-md">
-        <div className="p-4">
-          <div className="flex items-center mb-6">
-            {loading ? (
-              <Skeleton className="h-12 w-12 mr-2" />
-            ) : (
-              <Logo className="h-12 w-12 mr-2" />
-            )}
-            <span className="text-2xl font-bold text-gray-800">RVC Dashboard</span>
-          </div>
-          <div className="space-y-2">
-            <Button variant="ghost" className="w-full justify-start" size="lg" onClick={() => router.push('/')}>
-              <Home className="mr-2 h-5 w-5" /> Inicio
-            </Button>
-            <Button variant="ghost" className="w-full justify-start" size="lg">
-              <Package className="mr-2 h-5 w-5" /> Historial
-            </Button>
-            <Button variant="ghost" className="w-full justify-start" size="lg">
-              <Calendar className="mr-2 h-5 w-5" /> Anuncios
-            </Button>
-            <Button variant="ghost" className="w-full justify-start" size="lg" onClick={() => router.push('/dashboard/settings')}>
-              <Settings className="mr-2 h-5 w-5" /> Configuración
-            </Button>
-            <Button variant="ghost" className="w-full justify-start" size="lg">
-              <HelpCircle className="mr-2 h-5 w-5" /> Ayuda
-            </Button>
-          </div>
-        </div>
-        <div className="p-4 border-t">
-          <p className="text-sm text-gray-600">Conectado como:</p>
-          {loading ? (
-            <Skeleton className="h-6 w-3/4" />
-          ) : (
-            <p className="font-semibold">{session?.user?.name}</p>
-          )}
-        </div>
-      </div>
+  const isAdmin = (session?.user as { tipo_usuario?: string })?.tipo_usuario === 'admin'
 
-      {/* Main content */}
-      <div className="flex-1 overflow-auto">
+  const NavContent = () => (
+    <div className="flex flex-col h-full">
+      <div className="flex items-center p-4 mb-6">
         {loading ? (
-          <div className="p-6">
-            <Skeleton className="h-8 w-1/4 mb-6" />
-            <Skeleton className="h-64 w-full mb-6" />
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Skeleton className="h-48 w-full" />
-              <Skeleton className="h-48 w-full" />
-              <Skeleton className="h-48 w-full" />
-            </div>
-          </div>
+          <Skeleton className="h-12 w-12 mr-2" />
         ) : (
-          <main className="p-6">
-            <h1 className="text-3xl font-bold text-gray-800 mb-6">Dashboard</h1>
-
-            {/* Area Chart */}
-            
-
-            {/* Feedback section */}
-            <div className="justify-between grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-              <AnuncioForm />
-              <Card>
-                <CardHeader>
-                  <CardTitle>Caja De Opiniones y Sugerencia</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2">
-                    <div className="bg-gray-200 p-2 rounded">
-                      <span className="font-bold">Juilo Jalat:</span> Lorem Ipsum Dolorem
-                    </div>
-                    <div className="bg-gray-200 p-2 rounded">
-                      <span className="font-bold">Minerva Barnett:</span> Buen Servicio
-                    </div>
-                    <div className="bg-gray-200 p-2 rounded">
-                      <span className="font-bold">Peter Lewis:</span> Siento que Podrian Mejorar T...
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </main>
+          <Logo className="h-12 w-12 mr-2" />
+        )}
+        <span className="text-2xl font-bold text-gray-800">RVC Dashboard</span>
+      </div>
+      <div className="space-y-2 flex-grow">
+        <Button variant="ghost" className="w-full justify-start" size="lg" onClick={() => router.push('/')}>
+          <Home className="mr-2 h-5 w-5" /> Inicio
+        </Button>
+        {isAdmin && (
+          <Button variant="ghost" className="w-full justify-start" size="lg">
+            <Package className="mr-2 h-5 w-5" /> Historial
+          </Button>
+        )}
+        {isAdmin && (
+          <Button variant="ghost" className="w-full justify-start" size="lg">
+            <Calendar className="mr-2 h-5 w-5" /> Anuncios
+          </Button>
+        )}
+        <Button variant="ghost" className="w-full justify-start" size="lg" onClick={() => router.push('/dashboard/settings')}>
+          <Settings className="mr-2 h-5 w-5" /> Configuración
+        </Button>
+        <Button variant="ghost" className="w-full justify-start" size="lg">
+          <HelpCircle className="mr-2 h-5 w-5" /> Ayuda
+        </Button>
+      </div>
+      <div className="p-4 border-t mt-auto">
+        <p className="text-sm text-gray-600">Conectado como:</p>
+        {loading ? (
+          <Skeleton className="h-6 w-3/4" />
+        ) : (
+          <p className="font-semibold">{session?.user?.name}</p>
         )}
       </div>
     </div>
   )
+
+  return (
+    <div className="flex h-screen bg-gray-100">
+      {/* Sidebar for larger screens */}
+      <aside className="hidden md:block w-64 bg-white shadow-md">
+        <NavContent />
+      </aside>
+
+      {/* Main content */}
+      <div className="flex-1 flex flex-col overflow-hidden">
+        {/* Top bar for mobile */}
+        <header className="md:hidden bg-white shadow-md p-4 flex items-center justify-between">
+          <Logo className="h-8 w-8" />
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon">
+                <Menu className="h-6 w-6" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="left" className="w-64 p-0">
+              <NavContent />
+            </SheetContent>
+          </Sheet>
+        </header>
+
+        {/* Scrollable content area */}
+        <main className="flex-1 overflow-auto p-4 md:p-6">
+          {loading ? (
+            <DashboardSkeleton />
+          ) : (
+            isAdmin ? <AdminDashboardContent /> : <UserProfileContent user={{ ...session?.user, name: session?.user?.name ?? undefined, email: session?.user?.email ?? undefined }} />
+          )}
+        </main>
+      </div>
+    </div>
+  )
 }
+
+const DashboardSkeleton = () => (
+  <div>
+    <Skeleton className="h-8 w-1/4 mb-6" />
+    <Skeleton className="h-64 w-full mb-6" />
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <Skeleton className="h-48 w-full" />
+      <Skeleton className="h-48 w-full" />
+      <Skeleton className="h-48 w-full" />
+    </div>
+  </div>
+)
+
+const AdminDashboardContent = () => (
+  <div>
+    <h1 className="text-3xl font-bold text-gray-800 mb-6">Dashboard de Administrador</h1>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+      <Card className="col-span-1 md:col-span-2 lg:col-span-2">
+        <CardHeader>
+          <CardTitle>Crear Anuncio</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <AnuncioForm />
+        </CardContent>
+      </Card>
+      <Card>
+        <CardHeader>
+          <CardTitle>Caja De Opiniones y Sugerencia</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-2">
+            <div className="bg-gray-200 p-2 rounded">
+              <span className="font-bold">Juilo Jalat:</span> Lorem Ipsum Dolorem
+            </div>
+            <div className="bg-gray-200 p-2 rounded">
+              <span className="font-bold">Minerva Barnett:</span> Buen Servicio
+            </div>
+            <div className="bg-gray-200 p-2 rounded">
+              <span className="font-bold">Peter Lewis:</span> Siento que Podrian Mejorar T...
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  </div>
+)
+
+interface User {
+  name?: string;
+  email?: string;
+  tipo_usuario?: string;
+  telefono?: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+const UserProfileContent = ({ user }: { user: User }) => (
+  <div>
+    <h1 className="text-3xl font-bold text-gray-800 mb-6">Perfil de Usuario</h1>
+    <Card>
+      <CardHeader>
+        <CardTitle>Información Personal</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="space-y-4">
+          <div className="flex items-center space-x-4">
+            <User className="h-12 w-12 text-gray-400" />
+            <div>
+              <p className="text-xl font-semibold">{user?.name}</p>
+              <p className="text-gray-500">{user?.email}</p>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <p className="text-sm font-medium text-gray-500">Tipo de Usuario</p>
+              <p>{user?.tipo_usuario}</p>
+            </div>
+            <div>
+              <p className="text-sm font-medium text-gray-500">Teléfono</p>
+              <p>{user?.telefono || 'No especificado'}</p>
+            </div>
+            <div>
+              <p className="text-sm font-medium text-gray-500">Fecha de Registro</p>
+              <p>{new Date(user?.createdAt ?? '').toLocaleDateString()}</p>
+            </div>
+            <div>
+              <p className="text-sm font-medium text-gray-500">Última Actualización</p>
+              <p>{new Date(user?.updatedAt ?? '').toLocaleDateString()}</p>
+            </div>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  </div>
+)
