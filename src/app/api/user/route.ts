@@ -4,8 +4,8 @@ import db from "@/lib/db"
 
 
 export async function PUT(request: Request) {
-  const session: { user?: { email?: string } } | null = await getServerSession()
-  if (!session || !session.user || !session.user.email) {
+  const session = await getServerSession()
+  if (!session || !session.user) {
     return NextResponse.json(
       { error: "No autorizado" },
       { status: 401 }
