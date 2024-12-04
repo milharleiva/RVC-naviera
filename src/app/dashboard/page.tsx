@@ -154,7 +154,7 @@ interface User {
   updatedAt?: string;
 }
 
-const UserProfileContent = ({ user }: { user: User }) => (
+const UserProfileContent = ({ user }: { user: User & { [key: string]: unknown } }) => (
   <div>
     <h1 className="text-3xl font-bold text-gray-800 mb-6">Perfil de Usuario</h1>
     <Card>
