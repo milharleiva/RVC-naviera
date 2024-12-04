@@ -90,15 +90,24 @@ function DashboardClient({ user }: { user: { id_usuario: number; nombre: string;
         <Button variant="ghost" className="w-full justify-start" size="lg" onClick={() => router.push('/')}>
           <Home className="mr-2 h-5 w-5" /> Inicio
         </Button>
-        {isAdmin && (
-          <Button variant="ghost" className="w-full justify-start" size="lg">
-            <Package className="mr-2 h-5 w-5" /> Historial
-          </Button>
-        )}
-        {isAdmin && (
-          <Button variant="ghost" className="w-full justify-start" size="lg">
-            <Calendar className="mr-2 h-5 w-5" /> Anuncios
-          </Button>
+        {isAdmin ? (
+          <>
+            <Button variant="ghost" className="w-full justify-start" size="lg">
+              <Package className="mr-2 h-5 w-5" /> Historial
+            </Button>
+            <Button variant="ghost" className="w-full justify-start" size="lg">
+              <Calendar className="mr-2 h-5 w-5" /> Anuncios
+            </Button>
+          </>
+        ) : (
+          <>
+            <Button variant="ghost" className="w-full justify-start" size="lg">
+              <Package className="mr-2 h-5 w-5" /> Mis Boletos
+            </Button>
+            <Button variant="ghost" className="w-full justify-start" size="lg">
+              <Calendar className="mr-2 h-5 w-5" /> Próximos Viajes
+            </Button>
+          </>
         )}
         <Button variant="ghost" className="w-full justify-start" size="lg" onClick={() => router.push('/dashboard/settings')}>
           <Settings className="mr-2 h-5 w-5" /> Configuración
@@ -145,9 +154,9 @@ function DashboardClient({ user }: { user: { id_usuario: number; nombre: string;
         {/* Scrollable content area */}
         <main className="flex-1 overflow-auto p-4 md:p-6">
           <h1 className="text-3xl font-bold text-gray-800 mb-6">
-            {isAdmin ? "Dashboard de Administrador" : "Perfil de Usuario"}
+            {isAdmin ? "Dashboard de Administrador" : "Dashboard de Usuario"}
           </h1>
-          
+
           {/* User Profile Card - Visible for all users */}
           <Card className="mb-6">
             <CardHeader>
@@ -176,8 +185,8 @@ function DashboardClient({ user }: { user: { id_usuario: number; nombre: string;
             </CardContent>
           </Card>
 
-          {/* Admin-only content */}
-          {isAdmin && (
+          {/* Conditional content based on user type */}
+          {isAdmin ? (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Card>
                 <CardHeader>
@@ -206,6 +215,25 @@ function DashboardClient({ user }: { user: { id_usuario: number; nombre: string;
                 </CardContent>
               </Card>
             </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Mis Boletos</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p>Lista de boletos comprados aquí</p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle>Próximos Viajes</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p>Información sobre próximos viajes aquí</p>
+                </CardContent>
+              </Card>
+            </div>
           )}
         </main>
       </div>
@@ -229,3 +257,4 @@ const DashboardSkeleton = () => (
     </div>
   </div>
 )
+
