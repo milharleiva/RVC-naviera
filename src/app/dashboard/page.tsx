@@ -5,38 +5,40 @@ import db from "@/lib/db"
 import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { Package, Calendar, Home, Settings, HelpCircle, Menu, User, CreditCard, MessageSquare } from 'lucide-react'
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import Logo from '@/components/ui/Logo'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useForm } from "react-hook-form"
 
+type UserType = {
+  id_usuario: number
+  nombre: string
+  apellido: string
+  email: string
+  password: string
+  tipo_usuario: string
+  telefono: string | null
+  createdAt: Date
+  updatedAt: Date
+}
+
 export default function DashboardPage() {
-  const [user, setUser] = useState<{
-    id_usuario: number;
-    nombre: string;
-    apellido: string;
-    email: string;
-    password: string;
-    tipo_usuario: string;
-    telefono: string | null;
-    createdAt: Date;
-    updatedAt: Date;
-  } | null>(null)
+  const [user, setUser] = useState<UserType | null>(null)
   const router = useRouter()
 
   useEffect(() => {
     async function fetchData() {
       const session = await getServerSession()
-      
+
       if (!session) {
         router.push("/auth/login")
         return
       }
 
       const user = await db.usuario.findUnique({
-        where: { email: session.user?.email ?? undefined }
+        where: { email: session.user?.email || '' },
       })
 
       if (!user) {
@@ -56,29 +58,22 @@ export default function DashboardPage() {
   return <DashboardClient user={user} />
 }
 
-function DashboardClient({ user }: { user: { id_usuario: number; nombre: string; apellido: string; email: string; password: string; tipo_usuario: string; telefono: string | null; createdAt: Date; updatedAt: Date; } }) {
+function DashboardClient({ user }: { user: UserType }) {
   const router = useRouter()
-  const [loading, setLoading] = useState(true)
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
   const { watch } = useForm({
     defaultValues: {
-      nombre: user?.nombre || '',
-      apellido: user?.apellido || '',
-      email: user?.email || '',
-      telefono: user?.telefono || '',
-      tipo_usuario: user?.tipo_usuario || 'turista',
-    }
+      nombre: user.nombre,
+      apellido: user.apellido,
+      email: user.email,
+      telefono: user.telefono || '',
+      tipo_usuario: user.tipo_usuario || 'turista',
+    },
   })
 
   const watchedFields = watch()
   const isAdmin = watchedFields.tipo_usuario === 'admin'
-
-  useEffect(() => {
-    if (user) {
-      setLoading(false)
-    }
-  }, [user])
 
   const NavContent = () => (
     <div className="flex flex-col h-full">
@@ -118,25 +113,19 @@ function DashboardClient({ user }: { user: { id_usuario: number; nombre: string;
       </div>
       <div className="p-4 border-t mt-auto">
         <p className="text-sm text-gray-600">Conectado como:</p>
-        <p className="font-semibold">{watchedFields.nombre} {watchedFields.apellido}</p>
+        <p className="font-semibold">
+          {watchedFields.nombre} {watchedFields.apellido}
+        </p>
       </div>
     </div>
   )
 
-  if (loading) {
-    return <DashboardSkeleton />
-  }
-
   return (
     <div className="flex h-screen bg-gray-100">
-      {/* Sidebar for larger screens */}
       <aside className="hidden md:block w-64 bg-white shadow-md">
         <NavContent />
       </aside>
-
-      {/* Main content */}
       <div className="flex-1 flex flex-col overflow-hidden">
-        {/* Top bar for all screen sizes */}
         <div className="bg-white shadow-md p-4 flex items-center justify-between md:justify-end">
           <div className="flex items-center md:hidden">
             <Logo className="h-8 w-8 mr-2" />
@@ -153,26 +142,22 @@ function DashboardClient({ user }: { user: { id_usuario: number; nombre: string;
             </SheetContent>
           </Sheet>
         </div>
-
-        {/* Scrollable content area */}
         <main className="flex-1 overflow-auto p-4 md:p-6">
           <h1 className="text-3xl font-bold text-gray-800 mb-6">
-            {isAdmin ? "Dashboard de Administrador" : "Dashboard de Usuario"}
+            {isAdmin ? 'Dashboard de Administrador' : 'Dashboard de Usuario'}
           </h1>
-
-          {/* User Profile Card - Visible for all users */}
           <Card className="mb-6">
-            <CardContent className="pt-6">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-2xl font-bold">Información Personal</h2>
-                <User className="h-8 w-8 text-gray-400" />
-              </div>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-2xl font-bold">Información Personal</CardTitle>
+              <User className="h-8 w-8 text-gray-400" />
+            </CardHeader>
+            <CardContent>
               <div className="space-y-4">
-                <div className="flex items-center space-x-4">
-                  <div>
-                    <p className="text-xl font-semibold">{watchedFields.nombre} {watchedFields.apellido}</p>
-                    <p className="text-gray-500">{watchedFields.email}</p>
-                  </div>
+                <div>
+                  <p className="text-xl font-semibold">
+                    {watchedFields.nombre} {watchedFields.apellido}
+                  </p>
+                  <p className="text-gray-500">{watchedFields.email}</p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
@@ -187,28 +172,26 @@ function DashboardClient({ user }: { user: { id_usuario: number; nombre: string;
               </div>
             </CardContent>
           </Card>
-
-          {/* Conditional content based on user type */}
           {isAdmin ? (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Card>
-                <CardContent className="pt-6">
-                  <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-2xl font-bold">Crear Anuncio</h2>
-                    <Calendar className="h-8 w-8 text-gray-400" />
-                  </div>
-                  <p className="text-gray-600 mb-4">Crea y gestiona anuncios para los usuarios</p>
-                  <p>Formulario para crear anuncios aquí</p>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-2xl font-bold">Crear Anuncio</CardTitle>
+                  <Calendar className="h-8 w-8 text-gray-400" />
+                </CardHeader>
+                <CardContent>
+                  <CardDescription>Crea y gestiona anuncios para los usuarios</CardDescription>
+                  <p className="mt-2">Formulario para crear anuncios aquí</p>
                 </CardContent>
               </Card>
               <Card>
-                <CardContent className="pt-6">
-                  <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-2xl font-bold">Opiniones y Sugerencias</h2>
-                    <MessageSquare className="h-8 w-8 text-gray-400" />
-                  </div>
-                  <p className="text-gray-600 mb-4">Comentarios recientes de los usuarios</p>
-                  <div className="space-y-2">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-2xl font-bold">Opiniones y Sugerencias</CardTitle>
+                  <MessageSquare className="h-8 w-8 text-gray-400" />
+                </CardHeader>
+                <CardContent>
+                  <CardDescription>Comentarios recientes de los usuarios</CardDescription>
+                  <div className="space-y-2 mt-2">
                     <div className="bg-gray-200 p-2 rounded">
                       <span className="font-bold">Juilo Jalat:</span> Lorem Ipsum Dolorem
                     </div>
@@ -216,7 +199,7 @@ function DashboardClient({ user }: { user: { id_usuario: number; nombre: string;
                       <span className="font-bold">Minerva Barnett:</span> Buen Servicio
                     </div>
                     <div className="bg-gray-200 p-2 rounded">
-                      <span className="font-bold">Peter Lewis:</span> Siento que Podrian Mejorar T...
+                      <span className="font-bold">Peter Lewis:</span> Siento que Podrían Mejorar T...
                     </div>
                   </div>
                 </CardContent>
@@ -225,23 +208,23 @@ function DashboardClient({ user }: { user: { id_usuario: number; nombre: string;
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Card>
-                <CardContent className="pt-6">
-                  <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-2xl font-bold">Mis Boletos</h2>
-                    <CreditCard className="h-8 w-8 text-gray-400" />
-                  </div>
-                  <p className="text-gray-600 mb-4">Resumen de tus boletos comprados</p>
-                  <p>Lista de boletos comprados aquí</p>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-2xl font-bold">Mis Boletos</CardTitle>
+                  <CreditCard className="h-8 w-8 text-gray-400" />
+                </CardHeader>
+                <CardContent>
+                  <CardDescription>Resumen de tus boletos comprados</CardDescription>
+                  <p className="mt-2">Lista de boletos comprados aquí</p>
                 </CardContent>
               </Card>
               <Card>
-                <CardContent className="pt-6">
-                  <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-2xl font-bold">Próximos Viajes</h2>
-                    <Calendar className="h-8 w-8 text-gray-400" />
-                  </div>
-                  <p className="text-gray-600 mb-4">Tus próximos viajes programados</p>
-                  <p>Información sobre próximos viajes aquí</p>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-2xl font-bold">Próximos Viajes</CardTitle>
+                  <Calendar className="h-8 w-8 text-gray-400" />
+                </CardHeader>
+                <CardContent>
+                  <CardDescription>Tus próximos viajes programados</CardDescription>
+                  <p className="mt-2">Información sobre próximos viajes aquí</p>
                 </CardContent>
               </Card>
             </div>
@@ -268,4 +251,3 @@ const DashboardSkeleton = () => (
     </div>
   </div>
 )
-
