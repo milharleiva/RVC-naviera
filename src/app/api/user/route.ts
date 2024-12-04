@@ -14,7 +14,7 @@ export async function PUT(request: Request) {
 
   try {
     const body = await request.json()
-    const { nombre, apellido, email, telefono} = body
+    const { nombre, apellido, email, telefono, tipo_usuario} = body
 
     const updatedUser = await db.usuario.update({
       where: { email: session.user.email ?? undefined },
@@ -23,6 +23,7 @@ export async function PUT(request: Request) {
         apellido,
         email,
         telefono,
+        tipo_usuario
       },
     })
 

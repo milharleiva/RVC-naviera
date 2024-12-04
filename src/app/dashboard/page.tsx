@@ -11,6 +11,10 @@ import { Skeleton } from '@/components/ui/skeleton'
 import "react-datepicker/dist/react-datepicker.css"
 import { AnuncioForm } from './anuncio-form'
 
+
+
+
+
 export default function Dashboard() {
   const { data: session } = useSession()
   const router = useRouter()
@@ -102,7 +106,7 @@ export default function Dashboard() {
           </Sheet>
         </header>
         <main className="flex-1 overflow-auto p-4 md:p-6">
-          {isAdmin ? <AdminDashboardContent /> : <UserProfileContent user={session.user as User} />}
+          {isAdmin ? <AdminDashboardContent /> : <UserProfileContent user={session.user as unknown as User} />}
         </main>
       </div>
     </div>

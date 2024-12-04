@@ -1,59 +1,90 @@
-import NextAuth from 'next-auth';
-import CredentialProvider from 'next-auth/providers/credentials';
-import db from '@/lib/db';
+import NextAuth, { NextAuthOptions } from 'next-auth';
+import CredentialsProvider from 'next-auth/providers/credentials';
 import bcrypt from 'bcrypt';
+import db from '@/lib/db';
 
+interface CustomUser {
+    id: string;
+    rol: string;
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
+}
 
+declare module 'next-auth' {
+    interface Session {
+        user?: CustomUser;
+    }
+}
 
+declare module 'next-auth/jwt' {
+    interface JWT {
+        id?: string;
+        rol?: string;
+    }
+}
 
-const authOptions = 
-    {
+const authOptions: NextAuthOptions = {
+    providers: [
+        CredentialsProvider({
+            name: 'Credentials',
+            credentials: {
+                email: { label: 'Email', type: 'email', placeholder: 'example@example.com' },
+                password: { label: 'Password', type: 'password' },
+            },
+            async authorize(credentials) {
+                if (!credentials || !credentials.email || !credentials.password) {
+                    throw new Error('Se deben proporcionar correo electrónico y contraseña.');
+                }
 
-        providers: [
-            CredentialProvider({
-                name: 'credentials',
-                credentials: {
-                    email: {label: 'Email', type: 'email'},
-                    password: {label: 'Password', type: 'password'}
-                    
-                },
-                // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                async authorize(credentials, req) {
-                    
                 const userfound = await db.usuario.findUnique({
-                        where: {
-                            email: credentials?.email
-                        }
-                    })        
+                    where: { email: credentials.email },
+                });
 
-                    if(!userfound)  throw new Error('usuario no encontrado')
+                if (!userfound) {
+                    throw new Error('El usuario no existe.');
+                }
 
-                    
+                const isPasswordCorrect = await bcrypt.compare(credentials.password, userfound.password);
 
-                   if (!credentials) return null;
-                   const matchpassword = await bcrypt.compare(credentials.password, userfound.password)
+                if (!isPasswordCorrect) {
+                    throw new Error('La contraseña es incorrecta.');
+                }
 
-                   if (!matchpassword)  throw Error('contraseña incorrecta')
-
-                   return {
+                return {
                     id: userfound.id_usuario.toString(),
                     name: userfound.nombre,
                     email: userfound.email,
-                    rol: userfound.tipo_usuario
-                   }
+                    rol: userfound.tipo_usuario,
+                };
+            },
+        }),
+    ],
+    pages: {
+        signIn: '/auth/login',
+    },
+    callbacks: {
+        async jwt({ token, user }) {
+            if (user) {
+                token.id = user.id;
+                token.rol = (user as CustomUser).rol;
+            }
+            return token;
+        },
+        async session({ session, token }) {
+            session.user = {
+                id: token.id as string,
+                rol: token.rol as string,
+                name: session.user?.name || null,
+                email: session.user?.email || null,
+                image: session.user?.image || null,
+            };
+            return session;
+        },
+    },
+    secret: process.env.NEXTAUTH_SECRET,
+};
 
-                    
-    
-                }
-            })
-        ],
-        pages : {
-            signIn: '/auth/login',
-        }
-    }
+const handler = NextAuth(authOptions);
 
-
-const handler =   NextAuth(authOptions);
-
-
-export {handler as GET, handler as POST}
+export { handler as GET, handler as POST };
