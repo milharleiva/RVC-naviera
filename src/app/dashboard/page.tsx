@@ -171,24 +171,24 @@ const UserProfileContent = ({ user }: { user: User & { [key: string]: unknown } 
               <p className="text-gray-500">{user?.email}</p>
             </div>
           </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <p className="text-sm font-medium text-gray-500">Tipo de Usuario</p>
-                <p>{user?.tipo_usuario || 'No especificado'}</p>
-              </div>
-              <div>
-                <p className="text-sm font-medium text-gray-500">Teléfono</p>
-                <p>{user?.telefono || 'No especificado'}</p>
-              </div>
-              <div>
-                <p className="text-sm font-medium text-gray-500">Fecha de Registro</p>
-                <p>{user?.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'No disponible'}</p>
-              </div>
-              <div>
-                <p className="text-sm font-medium text-gray-500">Última Actualización</p>
-                <p>{user?.updatedAt ? new Date(user.updatedAt).toLocaleDateString() : 'No disponible'}</p>
-              </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <p className="text-sm font-medium text-gray-500">Tipo de Usuario</p>
+              <p>{user?.tipo_usuario || 'No especificado'}</p>
             </div>
+            <div>
+              <p className="text-sm font-medium text-gray-500">Teléfono</p>
+              <p>{user?.telefono || 'No especificado'}</p>
+            </div>
+            <div>
+              <p className="text-sm font-medium text-gray-500">Fecha de Registro</p>
+              <p>{user?.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'No disponible'}</p>
+            </div>
+            <div>
+              <p className="text-sm font-medium text-gray-500">Última Actualización</p>
+              <p>{user?.updatedAt ? new Date(user.updatedAt).toLocaleDateString() : 'No disponible'}</p>
+            </div>
+          </div>
         </div>
       </CardContent>
     </Card>
