@@ -10,6 +10,7 @@ import Logo from '@/components/ui/Logo'
 import { Skeleton } from '@/components/ui/skeleton'
 import "react-datepicker/dist/react-datepicker.css"
 import { AnuncioForm } from './anuncio-form'
+import { UserView } from '@/app/dashboard/user-view'
 
 export default function Dashboard() {
   const { data: session } = useSession()
@@ -65,6 +66,60 @@ export default function Dashboard() {
       </div>
     </div>
   )
+
+  const DashboardSkeleton = () => (
+    <div>
+      <Skeleton className="h-8 w-1/4 mb-6" />
+      <Skeleton className="h-64 w-full mb-6" />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <Skeleton className="h-48 w-full" />
+        <Skeleton className="h-48 w-full" />
+        <Skeleton className="h-48 w-full" />
+      </div>
+    </div>
+  )
+
+  const AdminDashboardContent = () => (
+    <div>
+      <h1 className="text-3xl font-bold text-gray-800 mb-6">Dashboard de Administrador</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+        <Card className="col-span-1 md:col-span-2 lg:col-span-2">
+          <CardHeader>
+            <CardTitle>Crear Anuncio</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <AnuncioForm />
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>Caja De Opiniones y Sugerencia</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-2">
+              <div className="bg-gray-200 p-2 rounded">
+                <span className="font-bold">Juilo Jalat:</span> Lorem Ipsum Dolorem
+              </div>
+              <div className="bg-gray-200 p-2 rounded">
+                <span className="font-bold">Minerva Barnett:</span> Buen Servicio
+              </div>
+              <div className="bg-gray-200 p-2 rounded">
+                <span className="font-bold">Peter Lewis:</span> Siento que Podrian Mejorar T...
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  )
+
+  const UserProfileContent = ({ user }: { user: User & { [key: string]: unknown } }) => (
+    <div>
+      <h1 className="text-3xl font-bold text-gray-800 mb-6">Perfil de Usuario</h1>
+      <UserView user={user} />
+    </div>
+  )
+
   return (
     <div className="flex h-screen bg-gray-100">
       {/* Sidebar for larger screens */}
@@ -99,98 +154,3 @@ export default function Dashboard() {
     </div>
   )
 }
-
-const DashboardSkeleton = () => (
-  <div>
-    <Skeleton className="h-8 w-1/4 mb-6" />
-    <Skeleton className="h-64 w-full mb-6" />
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <Skeleton className="h-48 w-full" />
-      <Skeleton className="h-48 w-full" />
-      <Skeleton className="h-48 w-full" />
-    </div>
-  </div>
-)
-const AdminDashboardContent = () => (
-  <div>
-    <h1 className="text-3xl font-bold text-gray-800 mb-6">Dashboard de Administrador</h1>
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-      <Card className="col-span-1 md:col-span-2 lg:col-span-2">
-        <CardHeader>
-          <CardTitle>Crear Anuncio</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <AnuncioForm />
-        </CardContent>
-      </Card>
-      <Card>
-        <CardHeader>
-          <CardTitle>Caja De Opiniones y Sugerencia</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-2">
-            <div className="bg-gray-200 p-2 rounded">
-              <span className="font-bold">Juilo Jalat:</span> Lorem Ipsum Dolorem
-            </div>
-            <div className="bg-gray-200 p-2 rounded">
-              <span className="font-bold">Minerva Barnett:</span> Buen Servicio
-            </div>
-            <div className="bg-gray-200 p-2 rounded">
-              <span className="font-bold">Peter Lewis:</span> Siento que Podrian Mejorar T...
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
-  </div>
-)
-
-interface User {
-  name?: string;
-  email?: string;
-  tipo_usuario?: string;
-  telefono?: string;
-  createdAt?: string;
-  updatedAt?: string;
-  [key: string]: unknown;
-}
-
-const UserProfileContent = ({ user }: { user: User & { [key: string]: unknown } }) => (
-  <div>
-    <h1 className="text-3xl font-bold text-gray-800 mb-6">Perfil de Usuario</h1>
-    <Card>
-      <CardHeader>
-        <CardTitle>Información Personal</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-4">
-          <div className="flex items-center space-x-4">
-            <User className="h-12 w-12 text-gray-400" />
-            <div>
-              <p className="text-xl font-semibold">{user?.name}</p>
-              <p className="text-gray-500">{user?.email}</p>
-            </div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <p className="text-sm font-medium text-gray-500">Tipo de Usuario</p>
-              <p>{user?.tipo_usuario || 'No especificado'}</p>
-            </div>
-            <div>
-              <p className="text-sm font-medium text-gray-500">Teléfono</p>
-              <p>{user?.telefono || 'No especificado'}</p>
-            </div>
-            <div>
-              <p className="text-sm font-medium text-gray-500">Fecha de Registro</p>
-              <p>{user?.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'No disponible'}</p>
-            </div>
-            <div>
-              <p className="text-sm font-medium text-gray-500">Última Actualización</p>
-              <p>{user?.updatedAt ? new Date(user.updatedAt).toLocaleDateString() : 'No disponible'}</p>
-            </div>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
-  </div>
-)
