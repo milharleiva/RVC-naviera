@@ -67,12 +67,12 @@ function DashboardClient({ user }: { user: { id_usuario: number; nombre: string;
       apellido: user?.apellido || '',
       email: user?.email || '',
       telefono: user?.telefono || '',
-      tipo_usuario: user?.tipo_usuario || 'usuario',
+      tipo_usuario: user?.tipo_usuario || 'turista',
     }
   })
 
   const watchedFields = watch()
-  const isAdmin = watchedFields.tipo_usuario === 'administrador'
+  const isAdmin = watchedFields.tipo_usuario === 'admin'
 
   useEffect(() => {
     if (user) {
