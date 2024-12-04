@@ -1,6 +1,7 @@
 'use client'
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
+import { Session } from 'next-auth'
 import { useState, useEffect } from 'react'
 import { Package, Calendar, Home, Settings, HelpCircle, Menu, User } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -92,7 +93,7 @@ export default function Dashboard() {
           {loading ? (
             <DashboardSkeleton />
           ) : (
-            isAdmin ? <AdminDashboardContent /> : <UserProfileContent user={{ ...session?.user, name: session?.user?.name ?? undefined, email: session?.user?.email ?? undefined }} />
+            isAdmin ? <AdminDashboardContent /> : session ? <UserProfileContent user={{ ...session.user, name: session.user?.name ?? undefined, email: session.user?.email ?? undefined }} session={session} /> : null
           )}
         </main>
       </div>
@@ -154,7 +155,7 @@ interface User {
   updatedAt?: string;
 }
 
-const UserProfileContent = ({ user }: { user: User }) => (
+const UserProfileContent = ({ user, session }: { user: User, session: Session }) => (
   <div>
     <h1 className="text-3xl font-bold text-gray-800 mb-6">Perfil de Usuario</h1>
     <Card>
@@ -173,7 +174,7 @@ const UserProfileContent = ({ user }: { user: User }) => (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <p className="text-sm font-medium text-gray-500">Tipo de Usuario</p>
-              <p>{user?.tipo_usuario}</p>
+              <p>{(session.user as User)?.tipo_usuario}</p>
             </div>
             <div>
               <p className="text-sm font-medium text-gray-500">Teléfono</p>
