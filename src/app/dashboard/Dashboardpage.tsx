@@ -1,3 +1,5 @@
+'use client'
+
 import { getServerSession } from "next-auth/next"
 import db from "@/lib/db"
 import { useRouter } from 'next/navigation'
