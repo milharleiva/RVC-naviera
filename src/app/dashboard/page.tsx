@@ -61,7 +61,7 @@ function DashboardClient({ user }: { user: { id_usuario: number; nombre: string;
   const [loading, setLoading] = useState(true)
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { register, watch } = useForm({
+  const { watch } = useForm({
     defaultValues: {
       nombre: user?.nombre || '',
       apellido: user?.apellido || '',
