@@ -31,7 +31,7 @@ export function AnuncioCard({ anuncio }: { anuncio: Anuncio }) {
         </div>
       </CardContent>
       <CardFooter className="flex flex-col sm:flex-row gap-2 sm:gap-4 justify-end">
-        <Link href={`/anuncios/${anuncio.id_anuncio}/edit`}>
+        <Link href={`dashboard/anuncios/${anuncio.id_anuncio}/edit`}>
           <Button variant="outline" className="w-full sm:w-auto">
             <EditIcon className="w-4 h-4 mr-2"/>
             Editar 
