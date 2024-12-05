@@ -91,7 +91,11 @@ export default function Dashboard() {
     <div className="flex h-screen bg-gray-100">
       <Sheet>
         <SheetTrigger asChild>
-          <Button variant="ghost" size="icon" className="md:hidden absolute top-4 left-4 z-50">
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="md:hidden flex items-center"
+          >
             <Menu className="h-6 w-6" />
           </Button>
         </SheetTrigger>
@@ -106,7 +110,19 @@ export default function Dashboard() {
 
       <div className="flex-1 flex flex-col overflow-hidden">
         <header className="bg-white shadow-md p-4 flex items-center justify-between md:justify-end">
-          <Logo className="h-8 w-8 md:hidden" />
+          <div className="flex items-center gap-4 md:hidden">
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  <Menu className="h-6 w-6" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="left" className="w-64 p-0">
+                <NavContent />
+              </SheetContent>
+            </Sheet>
+            <Logo className="h-8 w-8" />
+          </div>
           <div className="flex items-center space-x-4">
             <span className="text-sm font-medium">{session?.user?.nombre}</span>
             <User className="h-8 w-8 text-gray-500" />
