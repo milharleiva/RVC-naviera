@@ -65,11 +65,9 @@ export default function Dashboard() {
               <Package className="mr-2 h-5 w-5" /> Historial
             </Button>
         {isAdmin && (
-          <>
-            <Button variant="ghost" className="w-full justify-start" size="lg" onClick={() => router.push('/dashboard/anuncios')}>
-              <Calendar className="mr-2 h-5 w-5" /> Anuncios
-            </Button>
-          </>
+          <Button variant="ghost" className="w-full justify-start" size="lg" onClick={() => router.push('/dashboard/anuncios')}>
+            <Calendar className="mr-2 h-5 w-5" /> Anuncios
+          </Button>
         )}
         <Button variant="ghost" className="w-full justify-start" size="lg" onClick={() => router.push('/dashboard/settings')}>
           <Settings className="mr-2 h-5 w-5" /> Configuración
@@ -78,7 +76,7 @@ export default function Dashboard() {
           <HelpCircle  className="mr-2 h-5 w-5" /> Ayuda
         </Button>
       </div>
-      <div className="p-4 border-t mt-auto">
+      <div className="p-4 border-t mt-auto md:hidden">
         <p className="text-sm text-gray-600">Conectado como:</p>
         {loading ? (
           <Skeleton className="h-6 w-3/4" />
@@ -91,22 +89,28 @@ export default function Dashboard() {
 
   return (
     <div className="flex h-screen bg-gray-100">
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button variant="ghost" size="icon" className="md:hidden absolute top-4 left-4 z-50">
+            <Menu className="h-6 w-6" />
+          </Button>
+        </SheetTrigger>
+        <SheetContent side="left" className="w-64 p-0">
+          <NavContent />
+        </SheetContent>
+      </Sheet>
+
       <aside className="hidden md:block w-64 bg-white shadow-md">
         <NavContent />
       </aside>
+
       <div className="flex-1 flex flex-col overflow-hidden">
-        <header className="md:hidden bg-white shadow-md p-4 flex items-center justify-between">
-          <Logo className="h-8 w-8" />
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon">
-                <Menu className="h-6 w-6" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="left" className="w-64 p-0">
-              <NavContent />
-            </SheetContent>
-          </Sheet>
+        <header className="bg-white shadow-md p-4 flex items-center justify-between md:justify-end">
+          <Logo className="h-8 w-8 md:hidden" />
+          <div className="flex items-center space-x-4">
+            <span className="text-sm font-medium">{session?.user?.nombre}</span>
+            <User className="h-8 w-8 text-gray-500" />
+          </div>
         </header>
         <main className="flex-1 overflow-auto p-4 md:p-6">
           {isAdmin ? <AdminDashboardContent /> : <UserProfileContent user={session.user as unknown as User} />}
@@ -202,3 +206,4 @@ const UserProfileContent = ({ user }: { user: User & { [key: string]: unknown } 
     </Card>
   </div>
 )
+
