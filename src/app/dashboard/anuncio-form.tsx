@@ -20,10 +20,11 @@ import {
 } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { CrearAnuncio } from "./create-anuncio"
+import { Anuncio } from "@prisma/client"
 
 
 
-export function AnuncioForm() {
+export function AnuncioForm({anuncio}: {anuncio: Anuncio}) {
   return (
   <form action={CrearAnuncio}>
     <Card className="w-[350px]">
@@ -36,15 +37,15 @@ export function AnuncioForm() {
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="titulo">titulo del anuncio</Label>
-              <Input name="titulo" id="titulo" placeholder="titulo del anuncio" />
+              <Input name="titulo" id="titulo" placeholder="titulo del anuncio" defaultValue={anuncio?.titulo} />
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="descripcion">descripcion</Label>
-              <Textarea name="descripcion" id="descripcion" placeholder="descripcion" />
+              <Textarea name="descripcion" id="descripcion" placeholder="descripcion" defaultValue={anuncio?.descripcion} />
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="importancia">importancia</Label>
-              <Select   name="importancia">
+              <Select   name="importancia" defaultValue={anuncio?.importancia}>
                 <SelectTrigger id="importancia">
                   <SelectValue placeholder="Select" />
                 </SelectTrigger>
