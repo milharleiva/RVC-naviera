@@ -1,6 +1,6 @@
 'use server'
 import db from '@/lib/db';
-import {redirect} from 'next/navigation'
+import { revalidatePath } from 'next/cache';
 
 export async function CrearAnuncio(formData: FormData){
     
@@ -20,6 +20,8 @@ export async function CrearAnuncio(formData: FormData){
 
       }
     })
+    
     console.log(nuevoAnuncio)
-    redirect('/dashboard/anuncios')
+    revalidatePath('/dashboard/anuncios')
+    
   }
