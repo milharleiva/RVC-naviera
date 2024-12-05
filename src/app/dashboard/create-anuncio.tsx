@@ -52,6 +52,6 @@ export async function UpdateAnuncio(formData: FormData){
       importancia: importancia
     }
     });
-
+    revalidatePath('/dashboard/anuncios')
     redirect('/dashboard/anuncios')
 }
