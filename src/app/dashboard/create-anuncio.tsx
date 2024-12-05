@@ -22,6 +22,9 @@ export async function CrearAnuncio(formData: FormData){
     })
     
     console.log(nuevoAnuncio)
+    formData.set("titulo", "");
+    formData.set("descripcion", "");
+    formData.set("importancia", "");
     revalidatePath('/dashboard/anuncios')
     
   }
