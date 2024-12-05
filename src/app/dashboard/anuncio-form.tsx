@@ -25,9 +25,9 @@ import { UpdateAnuncio } from "./update-anuncio"
 
 
 
-export function AnuncioForm({anuncio}: {anuncio: Anuncio}) {
+export function AnuncioForm({anuncio}: {anuncio?: Anuncio}) {
 
-  const functionAction = anuncio.id_anuncio ? UpdateAnuncio : CrearAnuncio;
+  const functionAction = anuncio?.id_anuncio ? UpdateAnuncio : CrearAnuncio;
 
 
   return (
