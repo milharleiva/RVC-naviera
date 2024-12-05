@@ -1,5 +1,3 @@
-'use server'
-
 import * as React from "react"
 
 import { Button } from "@/components/ui/button"
@@ -26,9 +24,10 @@ import {redirect} from 'next/navigation'
 
 
 
-export async function AnuncioForm() {
+export function AnuncioForm() {
 
   async function CrearAnuncio(formData: FormData){
+    'use server'
     const titulo = formData.get("titulo")?.toString()
     const descripcion = formData.get("descripcion")?.toString()
     const importancia = formData.get("importancia")?.toString() 
