@@ -1,4 +1,5 @@
 
+import { AnuncioButtonDelete } from "@/components/ui-page/anuncio-button-delete"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
@@ -15,9 +16,6 @@ export  default async function Anuncios() {
   return (
     <div className=" grid  grid-cols-3 gap-4 pt-5 ">
 
-        <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100 ">
-            Anuncios
-        </h1>
 
       {anuncios.map(anuncio => (
         <Card key={anuncio.id_anuncio}>
@@ -49,7 +47,7 @@ export  default async function Anuncios() {
             </CardContent>
             <CardFooter className="flex  gap-x-2 justify-end">
                 <Button variant="destructive">Borrar</Button>
-                <Button>Eliminar</Button>
+                <AnuncioButtonDelete/>
             </CardFooter>
         </Card>
 
