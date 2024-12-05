@@ -18,7 +18,6 @@ export async function CrearAnuncio(formData: FormData){
         titulo: titulo,
         descripcion: descripcion,
         importancia: importancia,
-
       }
     })
     
@@ -30,3 +29,29 @@ export async function CrearAnuncio(formData: FormData){
     redirect('/dashboard/anuncios')
     
   }
+
+
+export async function UpdateAnuncio(formData: FormData){
+
+  const id_anuncio = formData.get("id_anuncio")?.toString()
+  const titulo = formData.get("titulo")?.toString()
+  const descripcion = formData.get("descripcion")?.toString()
+  const importancia = formData.get("importancia")?.toString()
+
+  if (!id_anuncio || !titulo || !descripcion || !importancia) {
+    return
+  }
+
+  await db.anuncio.update({
+    where: {
+      id_anuncio: parseInt(id_anuncio),
+    },
+    data : {
+      titulo: titulo,
+      descripcion: descripcion,
+      importancia: importancia
+    }
+    });
+
+    redirect('/dashboard/anuncios')
+}
