@@ -10,6 +10,7 @@ import Logo from '@/components/ui/Logo'
 import { Skeleton } from '@/components/ui/skeleton'
 import "react-datepicker/dist/react-datepicker.css"
 import { AnuncioForm } from './anuncio-form'
+import { revalidatePath } from 'next/cache'
 
 
 
@@ -41,6 +42,8 @@ export default function Dashboard() {
   if (!session) {
     return null
   }
+  
+  revalidatePath('/dashboard')
 
   const isAdmin = (session?.user as { role?: string })?.role == 'administrador'
   console.log(isAdmin)

@@ -46,8 +46,8 @@ export  default async function Anuncios() {
                 </span>
             </CardContent>
             <CardFooter className="flex  gap-x-2 justify-end">
-                <Button variant="destructive">Borrar</Button>
-                <AnuncioButtonDelete/>
+                <Button variant="default" >editar</Button>
+                <AnuncioButtonDelete anuncioId={anuncio.id_anuncio}/>
             </CardFooter>
         </Card>
 
