@@ -27,7 +27,6 @@ import {redirect} from 'next/navigation'
 export function AnuncioForm() {
 
   async function CrearAnuncio(formData: FormData){
-    'use server'
     const titulo = formData.get("titulo")?.toString()
     const descripcion = formData.get("descripcion")?.toString()
     const importancia = formData.get("importancia")?.toString() 
