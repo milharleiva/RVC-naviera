@@ -41,7 +41,7 @@ export default function Dashboard() {
     return null
   }
 
-  const isAdmin = (session?.user as { tipo_usuario?: string })?.tipo_usuario == 'admin'
+  const isAdmin = (session?.user as { role?: string })?.role == 'admin'
   console.log(isAdmin)
   console.log(session)
   const NavContent = () => (
@@ -80,7 +80,7 @@ export default function Dashboard() {
         {loading ? (
           <Skeleton className="h-6 w-3/4" />
         ) : (
-          <p className="font-semibold">{session?.user?.name}</p>
+          <p className="font-semibold">{session?.user?.nombre}</p>
         )}
       </div>
     </div>

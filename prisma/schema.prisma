@@ -68,17 +68,24 @@ model Transaccion {
   Boleto             Boleto?   @relation(fields: [id_boleto], references: [id_boleto])
 }
 
+enum UserRole {
+  turista
+  administrador
+}
+
+
 model Usuario {
   id_usuario   Int       @id @default(autoincrement())
   nombre       String    @db.VarChar(50)
   apellido     String    @db.VarChar(50)
   email        String    @unique @db.VarChar(100)
   password   String    @db.VarChar(255)
-  tipo_usuario String    @default("turista") @db.VarChar(20)
   telefono     String?   @db.VarChar(20)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
+  role UserRole @default(turista)
+ 
   Boletos      Boleto[]
   Reportes     Reporte[]
 }

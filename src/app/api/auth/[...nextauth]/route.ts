@@ -2,30 +2,19 @@ import NextAuth, { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import bcrypt from 'bcrypt';
 import db from '@/lib/db';
-
-interface CustomUser {
-    id: string;
-    tipo_usuario?: string;
-    name?: string | null;
-    email?: string | null;
-    image?: string | null;
-}
-
-declare module 'next-auth' {
-    interface Session {
-        user?: CustomUser;
-    }
-}
-
-declare module 'next-auth/jwt' {
-    interface JWT {
-        id?: string;
-        tipo_usuario?: string;
-    }
-}
+import {PrismaAdapter} from '@next-auth/prisma-adapter'
+import { UserRole } from '@prisma/client';
 
 const authOptions: NextAuthOptions = {
+
+
+    adapter: PrismaAdapter(db),
+    session: {
+        strategy: 'jwt',
+    },
+
     providers: [
+
         CredentialsProvider({
             name: 'Credentials',
             credentials: {
@@ -55,7 +44,6 @@ const authOptions: NextAuthOptions = {
                     id: userfound.id_usuario.toString(),
                     name: userfound.nombre,
                     email: userfound.email,
-                    rol: userfound.tipo_usuario,
                 };
             },
         }),
@@ -64,25 +52,27 @@ const authOptions: NextAuthOptions = {
         signIn: '/auth/login',
     },
     callbacks: {
-        async jwt({ token, user }) {
-            if (user) {
-                token.id = user.id;
-                token.rol = (user as CustomUser).tipo_usuario;
+        async session({token, session}) {
+            if (token && session.user) {
+                session.user.id = token.id as string;
+                session.user.email = token.email as string;
+                session.user.nombre = token.name as string;
+                session.user.role = token.role ;
             }
-            return token;
-        },
-        async session({ session, token }) {
-            session.user = {
-                id: token.id as string,
-                tipo_usuario: token.rol as string,
-                name: session.user?.name || null,
-                email: session.user?.email || null,
-                image: session.user?.image || null,
-            };
             return session;
         },
+    
+    async jwt({ token, user }) {
+        if (user) {
+            token.id = user.id;
+            token.email = user.email;
+            token.name = user.name;
+            token.role = (user.role ?? 'defaultRole') as UserRole;
+
+        }
+        return token;
     },
-    secret: process.env.NEXTAUTH_SECRET,
+},
 };
 
 const handler = NextAuth(authOptions);
