@@ -9,7 +9,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import Logo from '@/components/ui/Logo'
 import { Skeleton } from '@/components/ui/skeleton'
 import "react-datepicker/dist/react-datepicker.css"
-import { AnuncioForm } from './anuncio-form'
+
 
 
 
@@ -135,7 +135,7 @@ const AdminDashboardContent = () => (
           <CardTitle>Crear Anuncio</CardTitle>
         </CardHeader>
         <CardContent>
-          <AnuncioForm />
+          
         </CardContent>
       </Card>
       <Card>
