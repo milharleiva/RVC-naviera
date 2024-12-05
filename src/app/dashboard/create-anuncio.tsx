@@ -13,6 +13,7 @@ export async function CrearAnuncio(formData: FormData){
       return
     }
 
+   // eslint-disable-next-line @typescript-eslint/no-unused-vars
    const nuevoAnuncio = await db.anuncio.create({
       data: {
         titulo: titulo,
@@ -21,10 +22,7 @@ export async function CrearAnuncio(formData: FormData){
       }
     })
     
-    console.log(nuevoAnuncio)
-    formData.set("titulo", "");
-    formData.set("descripcion", "");
-    formData.set("importancia", "");
+
     revalidatePath('/dashboard/anuncios')
     redirect('/dashboard/anuncios')
     

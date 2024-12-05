@@ -19,21 +19,19 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
-
-
-import functionAction from "./functionAction"
+import { CrearAnuncio } from "./create-anuncio"
 import { Anuncio } from "@prisma/client"
+import { UpdateAnuncio } from "./update-anuncio"
 
 
 
+export function AnuncioForm({anuncio}: {anuncio: Anuncio}) {
 
-export function AnuncioForm({ anuncio }: { anuncio: Anuncio }) {
-
- 
+  const functionAction = anuncio.id_anuncio ? UpdateAnuncio : CrearAnuncio;
 
 
   return (
-  <form onSubmit={(event) => functionAction(event, anuncio)}>
+  <form action={functionAction}>
     <input type="hidden" name="id_anuncio" value={anuncio?.id_anuncio} />
     <Card className="w-[350px]">
       <CardHeader>
