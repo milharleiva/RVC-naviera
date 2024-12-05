@@ -56,6 +56,7 @@ const authOptions: NextAuthOptions = {
                 session.user.id = token.id as string;
                 session.user.email = token.email as string;
                 session.user.nombre = token.name as string;
+                session.user.apellido = token.apellido as string;
                 session.user.telefono = token.telefono as string;
                 session.user.role = token.role ;
             }
@@ -76,6 +77,7 @@ const authOptions: NextAuthOptions = {
             
             token.id = dbUser.id_usuario.toString();
             token.name = dbUser.nombre;
+            token.apellido = dbUser.apellido;
             token.role = dbUser.role;
             token.email = dbUser.email;
             token.telefono = dbUser.telefono;

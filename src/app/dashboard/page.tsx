@@ -15,6 +15,7 @@ import { AnuncioForm } from './anuncio-form'
 
 
 
+
 export default function Dashboard() {
   const { data: session } = useSession()
   const router = useRouter()
@@ -161,8 +162,9 @@ const AdminDashboardContent = () => (
 
 interface User {
   name?: string
+  apellido?: string
   email?: string
-  tipo_usuario?: string
+  role? : string
   telefono?: string
   createdAt?: string
   updatedAt?: string
@@ -181,7 +183,8 @@ const UserProfileContent = ({ user }: { user: User & { [key: string]: unknown } 
           <div className="flex items-center space-x-4">
             <User className="h-12 w-12 text-gray-400" />
             <div>
-              <p className="text-xl font-semibold">{user?.name}</p>
+              <p className="text-xl justify-between font-semibold">{user?.name} {user?.apellido}</p>
+
               <p className="text-gray-500">{user?.email}</p>
             </div>
           </div>
@@ -190,14 +193,7 @@ const UserProfileContent = ({ user }: { user: User & { [key: string]: unknown } 
               <p className="text-sm font-medium text-gray-500">Teléfono</p>
               <p>{user?.telefono || 'No especificado'}</p>
             </div>
-            <div>
-              <p className="text-sm font-medium text-gray-500">Fecha de Registro</p>
-              <p>{user?.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'No disponible'}</p>
-            </div>
-            <div>
-              <p className="text-sm font-medium text-gray-500">Última Actualización</p>
-              <p>{user?.updatedAt ? new Date(user.updatedAt).toLocaleDateString() : 'No disponible'}</p>
-            </div>
+           
           </div>
         </div>
       </CardContent>
