@@ -67,6 +67,10 @@ export default function LoginPage() {
         <p className="mt-4">no tienes una cuenta?</p>
       <Link  href="/auth/register" className="text-blue-500 mx-3 mt-4"> registrarse</Link>
       </div>
+      <div className='flex px-3'>
+      <p>olvidaste tu contraseña?</p>
+      <Link href="{{ .ConfirmationURL }}">reiniciar contraseña</Link>
+      </div>
       
     </div>
   )
