@@ -1,4 +1,3 @@
-'use client';
 import * as React from "react"
 
 import { Button } from "@/components/ui/button"
@@ -20,41 +19,13 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
-import db from '@/lib/db';
-import { redirect } from 'next/navigation';
-
+import { CrearAnuncio } from "./create-anuncio"
 
 
 
 export function AnuncioForm() {
-  async function CrearAnuncio(formData: FormData) {
-    'use server'
-    const titulo = formData.get("titulo")?.toString()
-    const descripcion = formData.get("descripcion")?.toString()
-    const importancia = formData.get("importancia")?.toString() 
-
-    if (!titulo || !descripcion || !importancia) {
-      return
-    }
-
-   const nuevoAnuncio = await db.anuncio.create({
-      data: {
-        titulo: titulo,
-        descripcion: descripcion,
-        importancia: importancia,
-
-      }
-    })
-    console.log(nuevoAnuncio)
-    redirect('/dashboard/anuncios')
-  }
-
   return (
-  <form onSubmit={async (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    await CrearAnuncio(formData);
-  }}>
+  <form action={CrearAnuncio}>
     <Card className="w-[350px]">
       <CardHeader>
         <CardTitle>crear anuncio</CardTitle>

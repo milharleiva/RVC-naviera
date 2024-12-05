@@ -1,5 +1,5 @@
 import db from "@/lib/db"
-import { AnuncioForm } from "../anuncio-form"
+
 
 export  default async function Anuncios() {
 
@@ -11,7 +11,7 @@ export  default async function Anuncios() {
   return (
     <div>
       
-    <AnuncioForm/>
+    
     </div>
   )
 }
