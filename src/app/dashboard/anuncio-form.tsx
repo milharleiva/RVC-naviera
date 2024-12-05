@@ -48,7 +48,7 @@ export function AnuncioForm() {
                 <SelectTrigger id="importancia">
                   <SelectValue placeholder="Select" />
                 </SelectTrigger>
-                <SelectContent className="bg-slate-400" position="popper">
+                <SelectContent className="bg-white" position="popper">
                   <SelectItem value="baja">baja</SelectItem>
                   <SelectItem value="media">media</SelectItem>
                   <SelectItem value="alta">alta</SelectItem>
