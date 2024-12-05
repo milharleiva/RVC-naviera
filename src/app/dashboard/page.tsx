@@ -16,7 +16,6 @@ import { AnuncioForm } from './anuncio-form'
 
 
 
-
 export default function Dashboard() {
   const { data: session } = useSession()
   const router = useRouter()
@@ -136,8 +135,8 @@ const AdminDashboardContent = () => (
           <CardTitle>Crear Anuncio</CardTitle>
         </CardHeader>
         <CardContent>
-        <AnuncioForm/>
-        </CardContent>
+        <AnuncioForm />
+          </CardContent >
       </Card>
       <Card>
         <CardHeader>
