@@ -44,11 +44,11 @@ export function AnuncioForm() {
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="importancia">importancia</Label>
-              <Select name="importancia">
+              <Select   name="importancia">
                 <SelectTrigger id="importancia">
                   <SelectValue placeholder="Select" />
                 </SelectTrigger>
-                <SelectContent position="popper">
+                <SelectContent className="bg-slate-400" position="popper">
                   <SelectItem value="baja">baja</SelectItem>
                   <SelectItem value="media">media</SelectItem>
                   <SelectItem value="alta">alta</SelectItem>
@@ -60,7 +60,7 @@ export function AnuncioForm() {
         
       </CardContent>
       <CardFooter className="flex justify-between">
-        <Button type="submit">enviar anuncio</Button>
+        <Button variant="default" type="submit">enviar anuncio</Button>
       </CardFooter>
     </Card>
   </form>
