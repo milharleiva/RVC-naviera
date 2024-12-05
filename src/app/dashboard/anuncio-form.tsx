@@ -68,7 +68,7 @@ export function AnuncioForm({anuncio}: {anuncio?: Anuncio}) {
       </CardContent>
       <CardFooter className="flex justify-between">
         <Button variant="default" type="submit">
-          guardar o enviar
+          {anuncio?.id_anuncio ? "Actualizar" : "Crear"}
            </Button>
       </CardFooter>
     </Card>
