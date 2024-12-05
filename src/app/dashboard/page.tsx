@@ -89,20 +89,6 @@ export default function Dashboard() {
 
   return (
     <div className="flex h-screen bg-gray-100">
-      <Sheet>
-        <SheetTrigger asChild>
-          <Button 
-            variant="ghost" 
-            size="icon" 
-            className="md:hidden flex items-center"
-          >
-            <Menu className="h-6 w-6" />
-          </Button>
-        </SheetTrigger>
-        <SheetContent side="left" className="w-64 p-0">
-          <NavContent />
-        </SheetContent>
-      </Sheet>
 
       <aside className="hidden md:block w-64 bg-white shadow-md">
         <NavContent />
