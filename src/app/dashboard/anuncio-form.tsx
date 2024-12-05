@@ -1,3 +1,4 @@
+'use client';
 import * as React from "react"
 
 import { Button } from "@/components/ui/button"
@@ -20,13 +21,13 @@ import {
 } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import db from '@/lib/db';
-import {redirect} from 'next/navigation'
+import { redirect } from 'next/navigation';
+
 
 
 
 export function AnuncioForm() {
-
-  async function CrearAnuncio(formData: FormData){
+  async function CrearAnuncio(formData: FormData) {
     'use server'
     const titulo = formData.get("titulo")?.toString()
     const descripcion = formData.get("descripcion")?.toString()
@@ -49,7 +50,11 @@ export function AnuncioForm() {
   }
 
   return (
-  <form action={CrearAnuncio}>
+  <form onSubmit={async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    await CrearAnuncio(formData);
+  }}>
     <Card className="w-[350px]">
       <CardHeader>
         <CardTitle>crear anuncio</CardTitle>
