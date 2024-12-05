@@ -143,7 +143,7 @@ const AdminDashboardContent = () => (
           <CardTitle>Crear Anuncio</CardTitle>
         </CardHeader>
         <CardContent>
-        <AnuncioForm />
+        <AnuncioForm anuncio={{ id_anuncio: 1, titulo: '', descripcion: '', importancia: '', createdAt: new Date(), updatedAt: new Date() }} />
           </CardContent >
       </Card>
       <Card>
