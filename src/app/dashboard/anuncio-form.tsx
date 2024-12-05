@@ -18,28 +18,57 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { Textarea } from "@/components/ui/textarea"
+import db from '@/lib/db';
+import {redirect} from 'next/navigation'
+
+
 
 export function AnuncioForm() {
+
+  async function CrearAnuncio(formData: FormData){
+    "use server"
+    const titulo = formData.get("titulo")?.toString()
+    const descripcion = formData.get("descripcion")?.toString()
+    const importancia = formData.get("importancia")?.toString() 
+
+    if (!titulo || !descripcion || !importancia) {
+      return
+    }
+
+   const nuevoAnuncio = await db.anuncio.create({
+      data: {
+        titulo: titulo,
+        descripcion: descripcion,
+        importancia: importancia,
+
+      }
+    })
+    console.log(nuevoAnuncio)
+    redirect('/dashboard/anuncios')
+  }
+
   return (
+  <form action={CrearAnuncio}>
     <Card className="w-[350px]">
       <CardHeader>
         <CardTitle>crear anuncio</CardTitle>
         <CardDescription>desplega un anuncio hacia la pagina principal.</CardDescription>
       </CardHeader>
       <CardContent>
-        <form>
+       
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="titulo">titulo del anuncio</Label>
-              <Input id="titulo" placeholder="titulo del anuncio" />
+              <Input name="titulo" id="titulo" placeholder="titulo del anuncio" />
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="descripcion">descripcion</Label>
-              <Input id="descripcion" placeholder="descripcion" />
+              <Textarea name="descripcion" id="descripcion" placeholder="descripcion" />
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="importancia">importancia</Label>
-              <Select>
+              <Select name="importancia">
                 <SelectTrigger id="importancia">
                   <SelectValue placeholder="Select" />
                 </SelectTrigger>
@@ -52,11 +81,12 @@ export function AnuncioForm() {
               </Select>
             </div>
           </div>
-        </form>
+        
       </CardContent>
       <CardFooter className="flex justify-between">
-        <Button>enviar anuncio</Button>
+        <Button type="submit">enviar anuncio</Button>
       </CardFooter>
     </Card>
+  </form>
   )
 }

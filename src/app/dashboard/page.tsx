@@ -64,7 +64,7 @@ export default function Dashboard() {
             </Button>
         {isAdmin && (
           <>
-            <Button variant="ghost" className="w-full justify-start" size="lg">
+            <Button variant="ghost" className="w-full justify-start" size="lg" onClick={() => router.push('/dashboard/anuncios')}>
               <Calendar className="mr-2 h-5 w-5" /> Anuncios
             </Button>
           </>
@@ -73,7 +73,7 @@ export default function Dashboard() {
           <Settings className="mr-2 h-5 w-5" /> Configuración
         </Button>
         <Button  variant="ghost" className="w-full justify-start" size="lg">
-          <HelpCircle href='https://api.whatsapp.com/send?phone=56983954374' className="mr-2 h-5 w-5" /> Ayuda
+          <HelpCircle  className="mr-2 h-5 w-5" /> Ayuda
         </Button>
       </div>
       <div className="p-4 border-t mt-auto">
