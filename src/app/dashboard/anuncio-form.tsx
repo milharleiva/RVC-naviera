@@ -19,8 +19,9 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
-import { CrearAnuncio, UpdateAnuncio } from "./create-anuncio"
+import { CrearAnuncio } from "./create-anuncio"
 import { Anuncio } from "@prisma/client"
+import { UpdateAnuncio } from "./update-anuncio"
 
 
 
