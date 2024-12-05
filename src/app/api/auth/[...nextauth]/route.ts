@@ -3,7 +3,6 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import bcrypt from 'bcrypt';
 import db from '@/lib/db';
 import {PrismaAdapter} from '@next-auth/prisma-adapter'
-import { UserRole } from '@prisma/client';
 
 const authOptions: NextAuthOptions = {
 
@@ -62,18 +61,29 @@ const authOptions: NextAuthOptions = {
             return session;
         },
     
-    async jwt({ token, user }) {
-        if (user) {
-            token.id = user.id;
-            token.email = user.email;
-            token.name = user.name;
-            token.role = (user.role ?? 'defaultRole') as UserRole;
+        async jwt({ token, user }) {
+            const dbUser = await db.usuario.findUnique({
+                where: {
+                    email: token.email ?? undefined,
+             },
+            })
 
+            if (!dbUser) {
+                token.id = user!.id
+                return token
+            }
+            
+            token.id = dbUser.id_usuario.toString();
+            token.name = dbUser.nombre;
+            token.role = dbUser.role;
+            token.email = dbUser.email;
+
+            return token;
         }
-        return token;
+        
     },
-},
-};
+}
+
 
 const handler = NextAuth(authOptions);
 

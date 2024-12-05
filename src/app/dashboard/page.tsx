@@ -41,7 +41,7 @@ export default function Dashboard() {
     return null
   }
 
-  const isAdmin = (session?.user as { role?: string })?.role == 'admin'
+  const isAdmin = (session?.user as { role?: string })?.role == 'administrador'
   console.log(isAdmin)
   console.log(session)
   const NavContent = () => (
@@ -188,7 +188,7 @@ const UserProfileContent = ({ user }: { user: User & { [key: string]: unknown } 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <p className="text-sm font-medium text-gray-500">Tipo de Usuario</p>
-              <p>{user?.tipo_usuario || 'No especificado'}</p>
+              <p>{String(user?.role) || 'No especificado'}</p>
             </div>
             <div>
               <p className="text-sm font-medium text-gray-500">Teléfono</p>
