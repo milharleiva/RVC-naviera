@@ -1,8 +1,9 @@
 
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import db from "@/lib/db"
-
+import Clsx from "clsx"
 
 export  default async function Anuncios() {
 
@@ -21,11 +22,23 @@ export  default async function Anuncios() {
       {anuncios.map(anuncio => (
         <Card key={anuncio.id_anuncio}>
 
-            <CardTitle>
-            <CardHeader>
+            
+            <CardHeader className=" flex flex-row justify-between">
+                <CardTitle>
                 {anuncio.titulo}
+                </CardTitle>
+                <Badge className={
+                Clsx ({
+                    'bg-red-500': anuncio.importancia === 'urgente',
+                    'bg-yellow-500': anuncio.importancia === 'alta',
+                    'bg-blue-500': anuncio.importancia === 'media',
+                    'bg-green-500': anuncio.importancia === 'baja',
+                
+                })
+                }
+                >{anuncio.importancia}</Badge>
             </CardHeader>
-            </CardTitle>
+            
             <CardContent>
                 <p>
                     {anuncio.descripcion}
