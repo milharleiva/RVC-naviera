@@ -28,7 +28,13 @@ const nextConfig = {
     return config;
   },
 
+  // Agregar la configuración para las variables de entorno
+  env: {
+    MP_ACCESS_TOKEN: process.env.MP_ACCESS_TOKEN,
+  },
+
   // Aquí puedes agregar otras configuraciones de Next.js si las necesitas
 };
 
 export default nextConfig;
+

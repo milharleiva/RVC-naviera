@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client-js"
   binaryTargets = ["native", "rhel-openssl-1.0.x"]
@@ -18,8 +17,10 @@ model Boleto {
   id_boleto    Int       @id @default(autoincrement())
   id_usuario   Int?
   id_horario   Int?
-  precio       Decimal     @db.Decimal(10, 2)
+  precio       Decimal   @db.Decimal(10, 2)
   fecha_compra DateTime
+  id_orden_pago Int?
+  orden_pago    OrdenPago? @relation(fields: [id_orden_pago], references: [id])
 
   Usuario      Usuario?  @relation(fields: [id_usuario], references: [id_usuario])
   Horario      Horario?  @relation(fields: [id_horario], references: [id_horario])
@@ -88,6 +89,7 @@ model Usuario {
  
   Boletos      Boleto[]
   Reportes     Reporte[]
+  ordenes_pago OrdenPago[]
 }
 
 model Anuncio {
@@ -98,3 +100,18 @@ model Anuncio {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 }
+
+model OrdenPago {
+  id              Int       @id @default(autoincrement())
+  id_usuario      Int
+  monto_total     Decimal   @db.Decimal(10, 2)
+  estado          String    @default("pendiente") @db.VarChar(20)
+  fecha_creacion  DateTime  @default(now())
+  fecha_actualizacion DateTime @updatedAt
+  id_pago_mp      String?   @unique // ID de pago de Mercado Pago
+  url_pago        String?   // URL de pago de Mercado Pago
+  
+  usuario         Usuario   @relation(fields: [id_usuario], references: [id_usuario])
+  boletos         Boleto[]
+}
+

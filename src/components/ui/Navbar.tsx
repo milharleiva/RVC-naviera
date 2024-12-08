@@ -7,9 +7,12 @@ import { Menu, X } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { useSession, signOut } from 'next-auth/react'
 import Logo from './Logo'
+import BuyTicketsDialog from '../ui-page/BuyTicketsDialog'
+
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isBuyDialogOpen, setIsBuyDialogOpen] = useState(false)
   const pathname = usePathname()
   const router = useRouter()
   const { status } = useSession()
@@ -55,6 +58,14 @@ export default function Navbar() {
           </div>
 
           <div className="hidden md:block">
+            <Button
+              variant="default"
+              size="sm"
+              className="mr-2 bg-blue-500 hover:bg-blue-600 text-white"
+              onClick={() => setIsBuyDialogOpen(true)}
+            >
+              Comprar
+            </Button>
             {status === 'authenticated' ? (
               <Button
                 variant="outline"
@@ -109,6 +120,14 @@ export default function Navbar() {
                 {item.name}
               </Link>
             ))}
+            <Button 
+              variant="default" 
+              size="sm" 
+              className="w-full justify-center mt-2 bg-blue-500 hover:bg-blue-600 text-white"
+              onClick={() => setIsBuyDialogOpen(true)}
+            >
+              Comprar
+            </Button>
             {status === 'authenticated' ? (
               <Button 
                 variant="outline" 
@@ -133,6 +152,13 @@ export default function Navbar() {
           </div>
         </div>
       )}
+
+      <BuyTicketsDialog
+        isOpen={isBuyDialogOpen}
+        onOpenChange={() => setIsBuyDialogOpen(false)}
+      />
     </nav>
   )
 }
+
+
