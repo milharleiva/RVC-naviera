@@ -1,82 +1,103 @@
-import { PrismaClient } from '@prisma/client'
-import { Preference } from 'mercadopago'
-import { mercadopago } from './mercadopagolib'
+import { PrismaClient } from '@prisma/client';
+import { MercadoPagoConfig, Preference } from 'mercadopago'; // Ajusta según tu configuración
 
-const prisma = new PrismaClient()
+// Lista de tipos de tickets y precios
+const ticketTypes = [
+  { name: 'Adulto', price: 500 },
+  { name: 'Adulto Mayor', price: 250 },
+  { name: 'Discapacitado', price: 250 },
+  { name: 'Estudiantes', price: 0 },
+];
+
+const prisma = new PrismaClient();
+const client = new MercadoPagoConfig({ accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN || '' });
 
 const api = {
   message: {
-    async list() {
-      return await prisma.ordenPago.findMany({
-        where: { estado: 'aprobado' },
-        include: { boletos: true }
-      })
-    },
-    async submit(tickets: { [key: string]: number }, total: number): Promise<string> {
+    async submit(
+      tickets: { [key: string]: number },
+      total: number,
+      userId: number // ID del usuario que realiza la compra
+    ): Promise<string> {
       try {
-        const preference = await new Preference(mercadopago).create({
+        // Construir los ítems según los tickets
+        const items = Object.entries(tickets).map(([name, quantity], index) => {
+          const ticketType = ticketTypes.find((ticket) => ticket.name === name);
+          if (!ticketType) {
+            throw new Error(`Tipo de ticket no reconocido: ${name}`);
+          }
+          return {
+            id: `${index + 1}`, // Generar un identificador único basado en el índice
+            title: `Ticket ${name}`,
+            quantity,
+            unit_price: ticketType.price,
+            currency_id: "CLP", // Reemplazar según la moneda deseada
+          };
+        });
+
+        // Inicializar Preference y crear la preferencia
+        const preference = new Preference(client);
+        const response = await preference.create({
           body: {
-            items: [
-              {
-                id: "tickets",
-                unit_price: total,
-                quantity: 1,
-                title: "Compra de boletos",
-              },
-            ],
+            items,
+            payer: {
+              email: "comprador@email.com", // Reemplazar con correo dinámico si es necesario
+            },
+            back_urls: {
+              success: `${process.env.NEXT_PUBLIC_BASE_URL}/success`,
+              failure: `${process.env.NEXT_PUBLIC_BASE_URL}/failure`,
+              pending: `${process.env.NEXT_PUBLIC_BASE_URL}/pending`,
+            },
+            auto_return: "approved",
             metadata: {
               tickets: JSON.stringify(tickets),
             },
           },
         });
 
-        if (!preference.id || !preference.init_point) {
-          throw new Error('Respuesta inválida de Mercado Pago');
+        // Acceder directamente a las propiedades de `response`
+        const { id, init_point } = response;
+
+        if (!id || !init_point) {
+          throw new Error('Error inesperado al crear la preferencia');
         }
 
-        // Guardamos la orden en la base de datos
-        await prisma.ordenPago.create({
+        // Crear la orden de pago en la base de datos
+        const ordenPago = await prisma.ordenPago.create({
           data: {
-            id_usuario: 1,
+            id_usuario: userId,
             monto_total: total,
             estado: 'pendiente',
-            id_pago_mp: preference.id,
-            url_pago: preference.init_point,
+            id_pago_mp: id,
+            url_pago: init_point,
           },
         });
 
-        // Devolvemos el init point (url de pago) para que el usuario pueda pagar
-        return preference.init_point;
+        // Crear boletos asociados a la orden
+        const boletos = Object.entries(tickets).flatMap(([name, quantity]) => {
+          const ticketType = ticketTypes.find((ticket) => ticket.name === name);
+          if (!ticketType) return [];
+          return Array.from({ length: quantity }, () => ({
+            id_usuario: userId,
+            id_orden_pago: ordenPago.id,
+            precio: ticketType.price,
+            fecha_compra: new Date(),
+          }));
+        });
+
+        await prisma.boleto.createMany({ data: boletos });
+
+        return init_point; // Retorna la URL de pago
       } catch (error) {
-        console.error('Error creating preference:', error);
+        if (error instanceof Error) {
+          console.error('Error al crear la preferencia:', error.message);
+        } else {
+          console.error('Error desconocido al crear la preferencia:', error);
+        }
         throw new Error('Error al crear la preferencia de pago');
       }
     },
-    async add(paymentId: string, tickets: { [key: string]: number }) {
-      const existingOrder = await prisma.ordenPago.findUnique({
-        where: { id_pago_mp: paymentId }
-      })
-      if (existingOrder) {
-        throw new Error("Order already processed")
-      }
-      await prisma.ordenPago.update({
-        where: { id_pago_mp: paymentId },
-        data: {
-          estado: 'aprobado',
-          boletos: {
-            create: Object.entries(tickets).map(([name, quantity]) => ({
-              tipo: name,
-              cantidad: quantity,
-              precio: 0,
-              fecha_compra: new Date(),
-              id_usuario: 1
-            }))
-          }
-        }
-      })
-    }
-  }
-}
+  },
+};
 
-export default api
-
+export default api;

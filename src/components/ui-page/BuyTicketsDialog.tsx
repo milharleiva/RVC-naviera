@@ -7,6 +7,8 @@ import { Label } from "@/components/ui/label"
 import { Plus, Minus } from 'lucide-react'
 import api from '@/lib/api'
 
+
+
 interface TicketType {
   name: string
   price: number
@@ -48,10 +50,10 @@ export default function BuyTicketsDialog({ isOpen, onOpenChange }: BuyTicketsDia
     setError(null)
     
     try {
-      const url = await api.message.submit(tickets, calculateTotal())
-      console.log('Payment URL received:', url);
-      if (url) {
-        window.location.href = url;
+      const urlmp = await api.message.submit(tickets, calculateTotal())
+      console.log('Payment URL received:', urlmp);
+      if (urlmp) {
+        window.location.href = urlmp;
       } else {
         throw new Error('No se recibió una URL de pago válida');
       }
@@ -59,8 +61,9 @@ export default function BuyTicketsDialog({ isOpen, onOpenChange }: BuyTicketsDia
       console.error('Error in handleSubmit:', error)
       setError(error instanceof Error ? error.message : 'Error desconocido al procesar la compra')
     } finally {
-      setIsLoading(false)
+      setIsLoading(false) 
     }
+    
   }
 
   return (
