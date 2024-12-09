@@ -50,7 +50,8 @@ export default function BuyTicketsDialog({ isOpen, onOpenChange }: BuyTicketsDia
     setError(null)
     
     try {
-      const urlmp = await api.message.submit(tickets, calculateTotal())
+      const userId = 1; // Replace with the actual user ID
+      const urlmp = await api.message.submit(tickets, calculateTotal(), userId)
       console.log('Payment URL received:', urlmp);
       if (urlmp) {
         window.location.href = urlmp;
