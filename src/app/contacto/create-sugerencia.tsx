@@ -10,7 +10,7 @@ export async function CrearSugerencia(formData: FormData){
     const mensaje = formData.get("mensaje")?.toString() 
 
     if (!nombre || !email || !mensaje) {
-        throw new Error('Error al crear el mensaje');
+        return
     }
 
    // eslint-disable-next-line @typescript-eslint/no-unused-vars

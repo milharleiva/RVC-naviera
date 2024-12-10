@@ -28,8 +28,11 @@ export function SugerenciaForm({ sugerencias }: { sugerencias?: Sugerencias }) {
   const clearForm = () => {
     setFormState({ name: "", email: "", message: "" });
   };
+
+
+
   console.log(sugerencias);
-  // Aquí añadimos el return que falta
+ 
   return (
     <Card className="bg-white shadow-lg mb-6">
       <CardHeader className="bg-blue-500 text-white">
