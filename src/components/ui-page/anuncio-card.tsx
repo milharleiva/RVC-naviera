@@ -6,8 +6,18 @@ import { Anuncio } from "@prisma/client"
 import { CalendarIcon, EditIcon } from 'lucide-react'
 import clsx from "clsx"
 import Link from "next/link"
+import { useSession } from "next-auth/react"
 
 export function AnuncioCard({ anuncio }: { anuncio: Anuncio }) {
+
+  
+  const { data: session } = useSession()
+
+  const isAdmin = (session?.user as { role?: string })?.role == 'administrador'
+
+
+
+
   return (
     <Card className="flex flex-col h-full">
       <CardHeader className="flex flex-col space-y-2 sm:flex-row sm:items-start sm:justify-between">
@@ -30,6 +40,7 @@ export function AnuncioCard({ anuncio }: { anuncio: Anuncio }) {
           <span>{new Date(anuncio.createdAt).toLocaleDateString()}</span>
         </div>
       </CardContent>
+      {isAdmin && (
       <CardFooter className="flex flex-col sm:flex-row gap-2 sm:gap-4 justify-end">
         <Link href={`anuncios/${anuncio.id_anuncio}/edit`}>
           <Button variant="outline" className="w-full sm:w-auto">
@@ -39,7 +50,8 @@ export function AnuncioCard({ anuncio }: { anuncio: Anuncio }) {
         </Link>
         <AnuncioButtonDelete anuncioId={anuncio.id_anuncio} />
       </CardFooter>
-    </Card>
+    )}
+  </Card>
   )
 }
 
