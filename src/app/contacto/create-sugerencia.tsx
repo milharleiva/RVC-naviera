@@ -10,7 +10,11 @@ export async function CrearSugerencia(formData: FormData){
     const email = formData.get("email")?.toString()
     const mensaje = formData.get("mensaje")?.toString() 
 
+
+   console.log(nombre, email, mensaje)
+
     if (!nombre || !email || !mensaje) {
+       
         return
     }
 
@@ -23,9 +27,9 @@ export async function CrearSugerencia(formData: FormData){
       }
     })
     
-
+    
     revalidatePath('/contacto')
-    redirect('/contacto')
+    redirect('/')
     
 }
 

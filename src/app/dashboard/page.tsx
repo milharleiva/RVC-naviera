@@ -10,6 +10,7 @@ import Logo from '@/components/ui/Logo'
 import { Skeleton } from '@/components/ui/skeleton'
 import "react-datepicker/dist/react-datepicker.css"
 import { AnuncioForm } from './anuncio-form'
+import CajaSugerencias from './settings/caja-sugerencias'
 
 
 
@@ -146,24 +147,7 @@ const AdminDashboardContent = () => (
         <AnuncioForm />
           </CardContent >
       </Card>
-      <Card>
-        <CardHeader>
-          <CardTitle>Caja De Opiniones y Sugerencia</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-2">
-            <div className="bg-gray-200 p-2 rounded">
-              <span className="font-bold">Juilo Jalat:</span> Lorem Ipsum Dolorem
-            </div>
-            <div className="bg-gray-200 p-2 rounded">
-              <span className="font-bold">Minerva Barnett:</span> Buen Servicio
-            </div>
-            <div className="bg-gray-200 p-2 rounded">
-              <span className="font-bold">Peter Lewis:</span> Siento que Podrian Mejorar T...
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+      <CajaSugerencias/>
     </div>
   </div>
 )
