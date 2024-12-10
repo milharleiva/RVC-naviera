@@ -2,7 +2,7 @@
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { useState, useEffect } from 'react'
-import { Package, Calendar, Home, Settings, HelpCircle, Menu, User } from 'lucide-react'
+import { Package, Calendar, Home, Settings, HelpCircle, Menu, User,Clipboard } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
@@ -11,7 +11,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import "react-datepicker/dist/react-datepicker.css"
 import { AnuncioForm } from './anuncio-form'
 
-import CajaSugerencias from './settings/caja-sugerencias'
+
 
 
 
@@ -67,9 +67,14 @@ export default function Dashboard() {
               <Package className="mr-2 h-5 w-5" /> Historial
             </Button>
         {isAdmin && (
-          <Button variant="ghost" className="w-full justify-start" size="lg" onClick={() => router.push('/dashboard/anuncios')}>
-            <Calendar className="mr-2 h-5 w-5" /> Anuncios
-          </Button>
+          <div>
+            <Button variant="ghost" className="w-full justify-start" size="lg" onClick={() => router.push('/dashboard/anuncios')}>
+              <Calendar className="mr-2 h-5 w-5" /> Anuncios
+            </Button>
+            <Button variant="ghost" className="w-full justify-start" size="lg" onClick={() => router.push('/dashboard/sugerencias')}>
+              <Clipboard className="mr-2 h-5 w-5" /> sugerencias
+            </Button>
+          </div>
         )}
         <Button variant="ghost" className="w-full justify-start" size="lg" onClick={() => router.push('/dashboard/settings')}>
           <Settings className="mr-2 h-5 w-5" /> Configuración
@@ -148,7 +153,6 @@ const AdminDashboardContent = () => (
         <AnuncioForm />
           </CardContent >
       </Card>
-      <CajaSugerencias/>
     </div>
   </div>
 )
