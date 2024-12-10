@@ -1,6 +1,7 @@
 'use server'
 import db from '@/lib/db';
 import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
 
 
 export async function CrearSugerencia(formData: FormData){
@@ -24,6 +25,7 @@ export async function CrearSugerencia(formData: FormData){
     
 
     revalidatePath('/contacto')
+    redirect('/contacto')
     
 }
 
