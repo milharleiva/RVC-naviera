@@ -28,7 +28,7 @@ export async function CrearSugerencia(formData: FormData){
     })
     
     
-    revalidatePath('/sugerencia')
+    revalidatePath('dashboard/sugerencia')
     redirect('/')
     
 }
