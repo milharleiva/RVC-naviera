@@ -6,45 +6,50 @@ const barcazas = [
     sector: "Sector 1",
     pasajeros: 100,
     carga: "50 toneladas",
-    imagen: "/path-to-barcaza1-image.jpg"
+    imagen: "/extras/tehuelche.jpeg",
   },
   {
     nombre: "Barcaza 2",
     sector: "Sector 2",
     pasajeros: 150,
     carga: "70 toneladas",
-    imagen: "/path-to-barcaza2-image.jpg"
-  }
-  // Add more barcazas as needed
+    imagen: "/extras/cullamo.jpg",
+  },
+  // Agrega más barcazas si es necesario
 ];
 
 const servicios = [
   {
     titulo: "Transporte de Carga",
     descripcion: "Ofrecemos servicios de transporte de carga a nivel nacional e internacional.",
-    imagen: "/path-to-servicio1-image.jpg"
+    imagen: "/extras/cullamo.jpg",
   },
   {
     titulo: "Transporte de Pasajeros",
     descripcion: "Servicios de transporte de pasajeros con las mejores comodidades y seguridad.",
-    imagen: "/path-to-servicio2-image.jpg"
+    imagen: "/extras/cullamo.jpg",
   },
   {
     titulo: "Alquiler de Barcazas",
     descripcion: "Alquiler de barcazas para diferentes necesidades y eventos.",
-    imagen: "/path-to-servicio3-image.jpg"
-  }
-  // Add more servicios as needed
+    imagen: "/extras/cullamo.jpg",
+  },
+  // Agrega más servicios si es necesario
 ];
 
-export default function sobrenosotros() {
+export default function SobreNosotros() {
   return (
     <div className="container mx-auto px-4 py-16">
+      {/* Espacio reservado para el banner */}
+      <div className="mb-12 h-64 bg-blue-900 rounded-xl flex items-center justify-center text-white text-3xl font-bold">
+        Banner Promocional (Reemplazar con contenido real)
+      </div>
+
       {/* Título principal */}
       <h1 className="text-4xl font-bold text-center text-gray-800 mb-12">
         Sobre Nosotros
       </h1>
-     
+
       {/* Sección: Historia */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mb-16">
         <div>
@@ -60,11 +65,13 @@ export default function sobrenosotros() {
           </p>
         </div>
         <div className="rounded-xl shadow-lg overflow-hidden">
-            <Image
-              src={barcazas[0].imagen}
-              alt={barcazas[0].nombre}
-              className="w-full h-64 object-cover"
-            />
+          <Image
+            src={barcazas[0].imagen}
+            alt={barcazas[0].nombre}
+            width={500}
+            height={300}
+            className="w-full h-auto object-cover"
+          />
         </div>
       </div>
 
@@ -72,9 +79,11 @@ export default function sobrenosotros() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mb-16">
         <div className="rounded-xl shadow-lg overflow-hidden order-2 md:order-1">
           <Image
-            src="/path-to-mision-image.jpg"
+            src="/extras/cullamo.jpg"
             alt="Nuestra misión"
-            className="w-full h-64 object-cover"
+            width={500}
+            height={300}
+            className="w-full h-auto object-cover"
           />
         </div>
         <div className="order-1 md:order-2">
@@ -103,7 +112,9 @@ export default function sobrenosotros() {
             <Image
               src={barcaza.imagen}
               alt={barcaza.nombre}
-              className="w-full h-64 object-cover"
+              width={500}
+              height={300}
+              className="w-full h-auto object-cover"
             />
           </div>
           <div>
@@ -123,10 +134,8 @@ export default function sobrenosotros() {
         </div>
       ))}
 
-      
-
-      {/* Nueva sección: Servicios */}
-      <h2 className="text-3xl font-semibold text-center text-white mb-12">
+      {/* Sección: Servicios */}
+      <h2 className="text-3xl font-semibold text-center text-gray-800 mb-12">
         Servicios
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -138,7 +147,9 @@ export default function sobrenosotros() {
             <Image
               src={servicio.imagen}
               alt={servicio.titulo}
-              className="w-full h-48 object-cover"
+              width={500}
+              height={300}
+              className="w-full h-auto object-cover"
             />
             <div className="p-6">
               <h3 className="text-xl font-bold mb-4">{servicio.titulo}</h3>
