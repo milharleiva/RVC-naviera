@@ -10,7 +10,7 @@ const ticketTypes = [
 ];
 
 const prisma = new PrismaClient();
-const client = new MercadoPagoConfig({ accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN || '' });
+const client = new MercadoPagoConfig({ accessToken: process.env.MP_ACCESS_TOKEN || '' });
 
 const api = {
   message: {
