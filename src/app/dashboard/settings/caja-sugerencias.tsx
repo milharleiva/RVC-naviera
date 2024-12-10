@@ -20,19 +20,8 @@ export  default async function CajaSugerencias() {
             <SugerenciaCard sugerencias={sug} key={sug.id_sugerencia} />
           ))}
         </CardContent>
-        <CardContent>
-          <div className="space-y-2">
-            <div className="bg-gray-200 p-2 rounded">
-              <span className="font-bold">Juilo Jalat:</span> Lorem Ipsum Dolorem
-            </div>
-            <div className="bg-gray-200 p-2 rounded">
-              <span className="font-bold">Minerva Barnett:</span> Buen Servicio
-            </div>
-            <div className="bg-gray-200 p-2 rounded">
-              <span className="font-bold">Peter Lewis:</span> Siento que Podrian Mejorar T...
-            </div>
-          </div>
-        </CardContent>
+        
+          
       </Card>
         </div>
     )
