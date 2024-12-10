@@ -34,6 +34,7 @@ export function SugerenciaForm({ sugerencias }: { sugerencias?: Sugerencias }) {
   console.log(sugerencias);
  
   return (
+    <form action={CrearSugerencia} className="space-y-4">
     <Card className="bg-white shadow-lg mb-6">
       <CardHeader className="bg-blue-500 text-white">
         <CardTitle className="flex items-center">
@@ -42,7 +43,7 @@ export function SugerenciaForm({ sugerencias }: { sugerencias?: Sugerencias }) {
         </CardTitle>
       </CardHeader>
       <CardContent className="mt-4">
-        <form action={CrearSugerencia}  className="space-y-4">
+        
           <div>
             <label htmlFor="nombre" className="block text-sm font-medium text-gray-700">
               Nombre
@@ -107,7 +108,7 @@ export function SugerenciaForm({ sugerencias }: { sugerencias?: Sugerencias }) {
               Limpiar
             </Button>
           </div>
-        </form>
+       
         {submitStatus === "success" && (
           <div className="mt-4 bg-green-500 text-white px-4 py-3 rounded" role="alert">
             <strong className="font-bold">¡Gracias por tu mensaje!</strong>
@@ -120,7 +121,9 @@ export function SugerenciaForm({ sugerencias }: { sugerencias?: Sugerencias }) {
             <span className="block sm:inline"> Revisa los campos e inténtalo de nuevo.</span>
           </div>
         )}
-      </CardContent>
-    </Card>
+    </CardContent>
+  </Card>
+  </form>
+     
   );
 }
