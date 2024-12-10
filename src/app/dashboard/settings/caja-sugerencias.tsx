@@ -16,8 +16,8 @@ export  default async function CajaSugerencias() {
 
         </CardHeader>
         <CardContent>
-          {sugerencia.map((sug) => (
-            <SugerenciaCard sugerencias={sug} key={sug.id_sugerencia} />
+          {sugerencia.map((sugerencias) => (
+            <SugerenciaCard sugerencias={sugerencias} key={sugerencias.id_sugerencia} />
           ))}
         </CardContent>
         

@@ -13,6 +13,7 @@ export function SugerenciaForm({ sugerencias }: { sugerencias?: Sugerencias }) {
 
   return (
     <form action={functioAction} className="space-y-4">
+    <input type="hidden" name="id_sugerencia" value={sugerencias?.id_sugerencia} />
     <Card className="bg-white shadow-lg mb-6">
       <CardHeader className="bg-blue-500 text-white">
         <CardTitle className="flex items-center">
