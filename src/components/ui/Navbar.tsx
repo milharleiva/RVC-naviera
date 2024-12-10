@@ -21,6 +21,7 @@ export default function Navbar() {
     { name: 'Sobre nosotros', href: '/sobre-nosotros' },
     { name: 'Rutas y tarifas', href: '/rutas-y-tarifas' },
     { name: 'Contacto', href: '/contacto' },
+    {name:'anuncios', href:'/Anuncios-page'},
   ]
 
   if (status === 'authenticated') {
