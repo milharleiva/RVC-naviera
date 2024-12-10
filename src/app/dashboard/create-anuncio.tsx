@@ -24,6 +24,7 @@ export async function CrearAnuncio(formData: FormData){
     
     
     revalidatePath('/dashboard/anuncios')
+    revalidatePath('/Anuncios-page')
     redirect('/dashboard/anuncios')
     
 }
