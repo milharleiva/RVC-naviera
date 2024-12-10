@@ -10,7 +10,8 @@ import Logo from '@/components/ui/Logo'
 import { Skeleton } from '@/components/ui/skeleton'
 import "react-datepicker/dist/react-datepicker.css"
 import { AnuncioForm } from './anuncio-form'
-import CajaSugerencias from './settings/caja-sugerencias'
+
+import { SugerenciaForm } from '../contacto/sugerencia-form'
 
 
 
@@ -147,7 +148,7 @@ const AdminDashboardContent = () => (
         <AnuncioForm />
           </CardContent >
       </Card>
-      <CajaSugerencias/>
+      <SugerenciaForm/>
     </div>
   </div>
 )

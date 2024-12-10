@@ -1,3 +1,4 @@
+'use server'
 import { SugerenciaCard } from "@/components/ui-page/sugerencia-card";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import db from "@/lib/db"
