@@ -28,7 +28,7 @@ export async function CrearSugerencia(formData: FormData){
     })
     
     
-    revalidatePath('/contacto')
+    revalidatePath('/sugerencia')
     redirect('/')
     
 }
