@@ -3,7 +3,7 @@ import {
   Phone, Mail, MapPin, Facebook, Twitter, Linkedin,Share2,
 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { SugerenciaForm } from './sugerencia-form'
+import { SugerenciaForm } from '../dashboard/sugerencias/sugerencia-form'
 
 
 
