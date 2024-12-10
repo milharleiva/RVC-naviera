@@ -55,7 +55,6 @@ export function SugerenciaForm({ sugerencias }: { sugerencias?: Sugerencias }) {
               placeholder="Tu nombre"
               required
               onChange={handleChange}
-              value={formState.name}
               className="w-full bg-gray-100"
               defaultValue={sugerencias?.nombre || ""}
             />
@@ -71,7 +70,7 @@ export function SugerenciaForm({ sugerencias }: { sugerencias?: Sugerencias }) {
               placeholder="tu@email.com"
               required
               onChange={handleChange}
-              value={formState.email}
+
               className="w-full bg-gray-100"
               defaultValue={sugerencias?.email || ""}
             />
@@ -87,7 +86,6 @@ export function SugerenciaForm({ sugerencias }: { sugerencias?: Sugerencias }) {
               placeholder="¿En qué podemos ayudarte?"
               required
               onChange={handleChange}
-              value={formState.message}
               className="w-full bg-gray-100"
               defaultValue={sugerencias?.mensaje || ""}
             />
