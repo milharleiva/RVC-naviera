@@ -81,7 +81,7 @@ export function SugerenciaForm({ sugerencias }: { sugerencias?: Sugerencias }) {
             </label>
             <Textarea
               id="mensaje"
-              name="message" // Cambié el name para que coincida con el estado
+              name="mensaje" // Cambié el name para que coincida con el estado
               rows={4}
               placeholder="¿En qué podemos ayudarte?"
               required
