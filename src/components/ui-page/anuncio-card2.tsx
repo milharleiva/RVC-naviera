@@ -1,14 +1,13 @@
-import { AnuncioButtonDelete } from "@/components/ui-page/anuncio-button-delete"
+
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent,CardHeader, CardTitle } from "@/components/ui/card"
 import { Anuncio } from "@prisma/client"
-import { CalendarIcon, EditIcon } from 'lucide-react'
+import { CalendarIcon} from 'lucide-react'
 import clsx from "clsx"
-import Link from "next/link"
 
 
-export function AnuncioCard({ anuncio }: { anuncio: Anuncio }) {
+
+export function AnuncioCard2({ anuncio }: { anuncio: Anuncio }) {
 
   
 
@@ -39,15 +38,6 @@ export function AnuncioCard({ anuncio }: { anuncio: Anuncio }) {
         </div>
       </CardContent>
    
-      <CardFooter className="flex flex-col sm:flex-row gap-2 sm:gap-4 justify-end">
-        <Link href={`anuncios/${anuncio.id_anuncio}/edit`}>
-          <Button variant="outline" className="w-full sm:w-auto">
-            <EditIcon className="w-4 h-4 mr-2"/>
-            Editar 
-          </Button>
-        </Link>
-        <AnuncioButtonDelete anuncioId={anuncio.id_anuncio} />
-      </CardFooter>
 
   </Card>
   )
