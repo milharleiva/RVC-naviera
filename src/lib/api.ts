@@ -94,6 +94,7 @@ const api = {
         } else {
           console.error('Error desconocido al crear la preferencia:', error);
         }
+        console.log('tickets:', tickets);
         throw new Error('Error al crear la preferencia de pago');
       }
     },
