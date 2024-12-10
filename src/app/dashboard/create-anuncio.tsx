@@ -22,7 +22,7 @@ export async function CrearAnuncio(formData: FormData){
       }
     })
     
-    revalidatePath('/Anuncios-page-')
+    revalidatePath('/Anuncios-page')
     revalidatePath('/dashboard/anuncios')
     redirect('/dashboard/anuncios')
     
