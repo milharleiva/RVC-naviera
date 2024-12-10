@@ -13,23 +13,10 @@ export function SugerenciaForm({ sugerencias }: { sugerencias?: Sugerencias }) {
     email: "",
     message: "",
   });
-  const [submitStatus, setSubmitStatus] =
+  const [submitStatus] =
     useState<"idle" | "success" | "error" | "loading">("idle");
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitStatus("loading");
-
-    // Simulación de envío de formulario
-    setTimeout(() => {
-      if (formState.name && formState.email && formState.message) {
-        setSubmitStatus("success");
-        setFormState({ name: "", email: "", message: "" }); // Limpia el formulario
-      } else {
-        setSubmitStatus("error");
-      }
-    }, 2000);
-  };
+  
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormState({
@@ -41,7 +28,7 @@ export function SugerenciaForm({ sugerencias }: { sugerencias?: Sugerencias }) {
   const clearForm = () => {
     setFormState({ name: "", email: "", message: "" });
   };
-
+  console.log(sugerencias);
   // Aquí añadimos el return que falta
   return (
     <Card className="bg-white shadow-lg mb-6">
@@ -52,7 +39,7 @@ export function SugerenciaForm({ sugerencias }: { sugerencias?: Sugerencias }) {
         </CardTitle>
       </CardHeader>
       <CardContent className="mt-4">
-        <form action={CrearSugerencia} onSubmit={handleSubmit} className="space-y-4">
+        <form action={CrearSugerencia}  className="space-y-4">
           <div>
             <label htmlFor="nombre" className="block text-sm font-medium text-gray-700">
               Nombre
